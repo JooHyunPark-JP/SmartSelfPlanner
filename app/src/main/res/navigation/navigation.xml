@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/userMainFragment">
+
+    <fragment
+        android:id="@+id/userMainFragment"
+        android:name="com.example.smartselfplanner.UserMainPage.UserMainFragment"
+        android:label="fragment_user_main"
+        tools:layout="@layout/fragment_user_main" >
+        <action
+            android:id="@+id/action_userMainFragment_to_todoListFragment"
+            app:destination="@id/todoListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/todoListFragment"
+        android:name="com.example.smartselfplanner.TodoList.TodoListFragment"
+        android:label="fragment_todo_list"
+        tools:layout="@layout/fragment_todo_list" >
+        <action
+            android:id="@+id/action_todoListFragment_to_addTodoFragment"
+            app:destination="@id/addTodoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addTodoFragment"
+        android:name="com.example.smartselfplanner.AddTodo.AddTodoFragment"
+        android:label="fragment_add_todo"
+        tools:layout="@layout/fragment_add_todo" />
+</navigation>

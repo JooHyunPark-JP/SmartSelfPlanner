@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="8dp"
+    app:cardMaxElevation="5dp"
+    android:layout_margin="10dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground">
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/dailyPlanView"
+        >
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_margin="10dp"
+            android:padding="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+
+            <!--            <CheckBox
+                            android:id="@+id/check_box_completed"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:minWidth="0dp"
+                            android:minHeight="0dp" />-->
+
+
+            <TextView
+                android:id="@+id/todoTask"
+                android:text="SubTitle"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_margin="6dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/todoMenu"
+            android:src="@drawable/ic_more"
+            android:background="@color/white"
+            android:layout_gravity="center"
+            android:layout_width="40dp"
+            android:layout_height="40dp"/>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
