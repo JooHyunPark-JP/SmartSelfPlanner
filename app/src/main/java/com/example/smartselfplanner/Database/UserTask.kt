@@ -18,6 +18,9 @@ data class UserTask(
     @ColumnInfo(name = "task_type")
     val TaskType: String = "",
 
+   @ColumnInfo(name = "task_completed")
+    var TaskCompleted: Boolean? = null
+
 
 
 ) : Parcelable

@@ -1,4 +1,4 @@
-package com.example.smartselfplanner.AddTodo
+package com.example.smartselfplanner.TodoList.AddTodo
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

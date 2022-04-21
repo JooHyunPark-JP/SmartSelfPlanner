@@ -51,6 +51,19 @@ class UserMainFragment : Fragment() {
         viewModel.todoCount.observe(viewLifecycleOwner, Observer {count->
             binding.toDoCount.text = "You have "+ count.toString()+ " todo left!"
         })
+
+        viewModel.dailyTodoCount.observe(viewLifecycleOwner, Observer {count->
+            binding.dailyTotalTodoText.text = "Total Daily tasks "+ count.toString()
+        })
+
+        viewModel.getDailyLeftTodoCount.observe(viewLifecycleOwner, Observer {count->
+            binding.dailyLeftTodoText.text = count.toString()+ " tasks left!"
+        })
+
+
+        binding.dabaseDeleteButton.setOnClickListener {
+            viewModel.onClear()
+        }
         return binding.root
     }
 

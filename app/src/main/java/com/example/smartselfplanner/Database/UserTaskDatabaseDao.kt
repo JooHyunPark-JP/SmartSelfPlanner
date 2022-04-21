@@ -36,6 +36,11 @@ interface UserTaskDatabaseDao {
     @Query("SELECT COUNT(TaskId) FROM user_task_table where task_type = :key")
     fun getTodoCount(key: String): LiveData<Integer>
 
+    @Query("SELECT COUNT(TaskId) FROM user_task_table where task_type = :key AND task_completed= :key2")
+    fun getDailyLeftTodoCount(key: String, key2:Boolean): LiveData<Integer>
+
+
+
 
 /*    // Cant use offset without set a limit.
     //Getting all to do lists from this UUID.

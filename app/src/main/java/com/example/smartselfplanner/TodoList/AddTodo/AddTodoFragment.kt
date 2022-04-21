@@ -1,4 +1,4 @@
-package com.example.smartselfplanner.AddTodo
+package com.example.smartselfplanner.TodoList.AddTodo
 
 import android.os.Bundle
 import android.util.Log
@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.example.smartselfplanner.Database.UserTaskDatabase
-import com.example.smartselfplanner.R
 import com.example.smartselfplanner.databinding.FragmentAddTodoBinding
 
 // TODO: Rename parameter arguments, choose names that match
@@ -17,6 +16,7 @@ import com.example.smartselfplanner.databinding.FragmentAddTodoBinding
 class AddTodoFragment : Fragment() {
 
     lateinit var binding: FragmentAddTodoBinding
+
     private lateinit var viewModel: AddTodoViewModel
 
     override fun onCreateView(

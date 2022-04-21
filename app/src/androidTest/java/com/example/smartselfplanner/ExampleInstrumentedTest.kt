@@ -47,6 +47,6 @@ class UserTasksDatabaseTest {
         val task = UserTask()
         userTasksDao.insert(task)
         val recentTask = userTasksDao.getMostRecentTask()
-        assertEquals(recentTask?.Task, "Test")
+        assertEquals(recentTask?.Task, "")
     }
 }

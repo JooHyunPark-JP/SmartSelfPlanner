@@ -28,11 +28,19 @@
     </fragment>
     <fragment
         android:id="@+id/addTodoFragment"
-        android:name="com.example.smartselfplanner.AddTodo.AddTodoFragment"
+        android:name="com.example.smartselfplanner.TodoList.AddTodo.AddTodoFragment"
         android:label="fragment_add_todo"
         tools:layout="@layout/fragment_add_todo" />
     <fragment
         android:id="@+id/dailyTodoFragment"
         android:name="com.example.smartselfplanner.DailyToDo.DailyTodoFragment"
-        android:label="DailyTodoFragment" />
+        android:label="DailyTodoFragment" >
+        <action
+            android:id="@+id/action_dailyTodoFragment_to_dailyAddTodoFragment"
+            app:destination="@id/dailyAddTodoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/dailyAddTodoFragment"
+        android:name="com.example.smartselfplanner.DailyToDo.DailyAddTodo.DailyAddTodoFragment"
+        android:label="DailyAddTodoFragment" />
 </navigation>

@@ -112,6 +112,6 @@ class TodoListAdapter(private val listener: OnItemClickListener) : RecyclerView.
     }
 
     override fun getItemCount(): Int {
-        return data.size;
+        return data.size
     }
 }
