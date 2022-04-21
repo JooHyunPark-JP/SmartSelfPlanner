@@ -13,7 +13,7 @@ data class UserTask(
     var TaskId: Long = 0L,
 
     @ColumnInfo(name = "task_name")
-    var Task: String = "Test",
+    var Task: String = "",
 
     @ColumnInfo(name = "task_type")
     val TaskType: String = "",

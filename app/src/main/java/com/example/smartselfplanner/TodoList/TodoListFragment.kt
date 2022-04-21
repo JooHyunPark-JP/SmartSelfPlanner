@@ -59,11 +59,11 @@ class TodoListFragment : Fragment(), TodoListAdapter.OnItemClickListener {
     }
 
     override fun onEditClick(userTask: UserTask) {
-        TODO("Not yet implemented")
+        viewModel.onEditSelected(userTask)
     }
 
     override fun onDeleteClick(userTask: UserTask) {
-        TODO("Not yet implemented")
+        viewModel.onDeleteSelected(userTask)
     }
 
 

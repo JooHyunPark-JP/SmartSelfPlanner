@@ -27,7 +27,7 @@
 
             <androidx.cardview.widget.CardView
                 android:layout_width="0dp"
-                android:id="@+id/dailyTaskView"
+                android:id="@+id/toDoTaskView"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
@@ -48,6 +48,7 @@
                         android:src="@drawable/ic_work" />
 
                     <TextView
+                        android:id="@+id/toDoCount"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
@@ -64,7 +65,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:id="@+id/test4"
+                android:id="@+id/dailyTaskView"
                 android:layout_weight="1"
                 app:cardCornerRadius="5dp"
                 app:cardElevation="5dp">

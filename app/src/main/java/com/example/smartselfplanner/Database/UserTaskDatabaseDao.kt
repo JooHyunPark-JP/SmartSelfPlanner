@@ -33,6 +33,9 @@ interface UserTaskDatabaseDao {
     @Query("SELECT * FROM user_task_table WHERE task_type = :key ORDER BY TaskId ASC  ")
     fun getTodoTask(key: String): LiveData<List<UserTask>>
 
+    @Query("SELECT COUNT(TaskId) FROM user_task_table where task_type = :key")
+    fun getTodoCount(key: String): LiveData<Integer>
+
 
 /*    // Cant use offset without set a limit.
     //Getting all to do lists from this UUID.

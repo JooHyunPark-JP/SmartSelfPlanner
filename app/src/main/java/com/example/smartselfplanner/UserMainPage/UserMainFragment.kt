@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.example.smartselfplanner.Database.UserTaskDatabase
@@ -20,6 +21,7 @@ class UserMainFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
 
     }
 
@@ -38,10 +40,20 @@ class UserMainFragment : Fragment() {
         viewModel = ViewModelProvider(this, viewModelFactory).get(UserMainPageViewModel::class.java)
 
 
-        binding.dailyTaskView.setOnClickListener {
+        binding.toDoTaskView.setOnClickListener {
             Navigation.findNavController(it).navigate(R.id.action_userMainFragment_to_todoListFragment)
         }
+
+        binding.dailyTaskView.setOnClickListener {
+            Navigation.findNavController(it).navigate(R.id.action_userMainFragment_to_dailyTodoFragment)
+        }
+
+        viewModel.todoCount.observe(viewLifecycleOwner, Observer {count->
+            binding.toDoCount.text = "You have "+ count.toString()+ " todo left!"
+        })
         return binding.root
     }
+
+
 
 }
