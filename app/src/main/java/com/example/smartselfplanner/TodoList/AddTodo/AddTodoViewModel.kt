@@ -31,7 +31,7 @@ class AddTodoViewModel(
 
     fun addTodo(toDo: String)  {
         viewModelScope.launch {
-            val newTodo = UserTask(TaskType = "UserTodo", Task = toDo)
+            val newTodo = UserTask(TaskType = "UserTodo", Task = toDo, isChecked = false)
             insert(newTodo)
             // recentTodo.value = getRecentWifiFromDatabase()
         }

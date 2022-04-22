@@ -1,22 +1,30 @@
 package com.example.smartselfplanner.TodoList
 
 import android.app.AlertDialog
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.graphics.Color
+import android.view.*
+import android.view.ActionMode.Callback
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.example.smartselfplanner.Database.UserTask
 import com.example.smartselfplanner.R
 
-class TodoListAdapter(private val listener: OnItemClickListener) : RecyclerView.Adapter<TodoListAdapter.todoListViewHolder>() {
+class TodoListAdapter(private val listener: OnItemClickListener, private val showMenuDelete: (Boolean) -> Unit) : RecyclerView.Adapter<TodoListAdapter.todoListViewHolder>() {
 
-    var data = listOf<UserTask>()
+/*    var data = listOf<UserTask>()
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }*/
+
+    var data = mutableListOf<UserTask>()
         set(value) {
             field = value
             notifyDataSetChanged()
         }
+
+    private var isEnable = false
+    private val itemSelectedList = mutableListOf<Int>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): todoListViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(
@@ -30,10 +38,40 @@ class TodoListAdapter(private val listener: OnItemClickListener) : RecyclerView.
         val currentItem = data[position]
         // holder.wifiNameNumber.text = position.toString()
         holder.todoName.text = currentItem.Task
+        holder.isCheckedCheckBox.isChecked = false
+
 
         holder.itemView.setOnClickListener {
-            Toast.makeText(it.context, "PrimaryKey: ${currentItem.TaskId}, TaskType: ${currentItem.TaskType} ", Toast.LENGTH_SHORT).show()
+            Toast.makeText(it.context, "PrimaryKey: ${currentItem.TaskId}, ischecked?: ${currentItem.isChecked} ", Toast.LENGTH_SHORT).show()
+            if(itemSelectedList.contains(position)){
+                itemSelectedList.removeAt(position)
+                holder.isCheckedCheckBox.isChecked = true
+                holder.itemView.setBackgroundColor(Color.GRAY)
+                currentItem.isChecked = false
+                if(itemSelectedList.isEmpty()){
+                    showMenuDelete(false)
+                    isEnable = false
+                }
+            }
+            else if (isEnable){
+                selectItem(holder,currentItem,position)
+            }
         }
+
+        holder.itemView.setOnLongClickListener {
+            selectItem(holder,currentItem,position)
+            true
+        }
+
+        holder.isCheckedCheckBox.setOnClickListener {
+            currentItem.isChecked = currentItem.isChecked == false
+            selectItem(holder,currentItem,position)
+        true
+
+           // Toast.makeText(it.context, "PrimaryKey: ${currentItem.TaskId}, ischecked?: ${currentItem.isChecked} ", Toast.LENGTH_SHORT).show()
+        }
+
+
 
         holder.todoListEditbutton.setOnClickListener {
             val context = it.context
@@ -100,18 +138,38 @@ class TodoListAdapter(private val listener: OnItemClickListener) : RecyclerView.
         }
     }
 
+    private fun selectItem(holder: TodoListAdapter.todoListViewHolder, currentItem: UserTask, position: Int) {
+        isEnable = true
+        itemSelectedList.add(position)
+        currentItem.isChecked = true
+        showMenuDelete(true)
+    }
+
+
     inner class todoListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         //  val wifiNameNumber: TextView = itemView.findViewById(R.id.wifiNameNumber)
         val todoName: TextView = itemView.findViewById(R.id.todoTask)
         val todoListEditbutton: ImageButton = itemView.findViewById(R.id.todoMenu)
+        val isCheckedCheckBox: CheckBox = itemView.findViewById(R.id.check_box_completed)
     }
 
     interface OnItemClickListener {
         fun onEditClick(userTask: UserTask)
         fun onDeleteClick(userTask: UserTask)
+        fun onMultipleSelect(userTask: UserTask)
+
     }
 
     override fun getItemCount(): Int {
         return data.size
+    }
+
+    fun deleteSelectedItem(){
+        if(itemSelectedList.isNotEmpty()){
+            data.removeAll{item -> item.isChecked!! }
+            isEnable = false
+            itemSelectedList.clear()
+        }
+        notifyDataSetChanged()
     }
 }

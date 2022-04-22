@@ -31,7 +31,7 @@ interface UserTaskDatabaseDao {
     fun getMostRecentTask(): UserTask?
 
     @Query("SELECT * FROM user_task_table WHERE task_type = :key ORDER BY TaskId ASC  ")
-    fun getTodoTask(key: String): LiveData<List<UserTask>>
+    fun getTodoTask(key: String): LiveData<MutableList<UserTask>>
 
     @Query("SELECT COUNT(TaskId) FROM user_task_table where task_type = :key")
     fun getTodoCount(key: String): LiveData<Integer>

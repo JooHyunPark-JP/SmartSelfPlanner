@@ -19,8 +19,9 @@ data class UserTask(
     val TaskType: String = "",
 
    @ColumnInfo(name = "task_completed")
-    var TaskCompleted: Boolean? = null
+    var TaskCompleted: Boolean? = null,
 
-
+    @ColumnInfo(name = "is_checked")
+    var isChecked: Boolean? = null
 
 ) : Parcelable
