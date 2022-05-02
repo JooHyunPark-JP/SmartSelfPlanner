@@ -1,6 +1,7 @@
 package com.example.smartselfplanner.TodoList
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.smartselfplanner.Database.UserTask
@@ -37,4 +38,25 @@ class TodoListViewModel (
             database.deleteRow(task.TaskId)
         }
     }
+
+    fun onMultipleDeleted() = viewModelScope.launch {
+        deleteMultipleRow()
+    }
+
+    private suspend fun deleteMultipleRow(){
+        withContext(Dispatchers.IO){
+            database.multipleDelete(true)
+        }
+    }
+
+    fun onCheckBoxChanged(userTask: UserTask) = viewModelScope.launch {
+        changeCheckBoxState(userTask)
+    }
+
+    private suspend fun changeCheckBoxState(task: UserTask){
+        withContext(Dispatchers.IO){
+            database.update(task)
+        }
+    }
+
 }

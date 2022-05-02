@@ -29,8 +29,8 @@ class TodoListFragment : Fragment(), TodoListAdapter.OnItemClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -62,13 +62,12 @@ class TodoListFragment : Fragment(), TodoListAdapter.OnItemClickListener {
 
         }
 
-
         //binding.deleteButton.isVisible = true
         return binding.root
     }
 
-    override fun onMultipleSelect(userTask: UserTask) {
-        binding.deleteButton.isVisible = true
+    override fun onMultipleSelect() {
+        viewModel.onMultipleDeleted()
     }
 
     override fun onEditClick(userTask: UserTask) {
@@ -77,6 +76,10 @@ class TodoListFragment : Fragment(), TodoListAdapter.OnItemClickListener {
 
     override fun onDeleteClick(userTask: UserTask) {
         viewModel.onDeleteSelected(userTask)
+    }
+
+    override fun oncheckboxClicked(userTask: UserTask) {
+        viewModel.onCheckBoxChanged(userTask)
     }
 
     fun showDeleteMenu(show: Boolean){
@@ -97,6 +100,7 @@ class TodoListFragment : Fragment(), TodoListAdapter.OnItemClickListener {
        }
         return super.onOptionsItemSelected(item)
     }
+
 
     private fun delete(){
         val alertDialog = AlertDialog.Builder(this.context)
