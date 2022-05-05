@@ -6,10 +6,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
-import android.widget.PopupMenu
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.example.smartselfplanner.Database.UserTask
 import com.example.smartselfplanner.R
@@ -66,7 +63,13 @@ class DailyTodoAdapter(private val listener: OnItemClickListener) : RecyclerView
             val popupMenu = PopupMenu(context, holder.itemView, Gravity.END)
             popupMenu.inflate(R.menu.todo_menu)
             popupMenu.setOnMenuItemClickListener {
-                when (it.itemId) {R.id.deleteText -> {
+                when (it.itemId) {
+                    R.id.editText -> {
+                        listener.onEditClick(currentItem)
+                        true
+                    }
+
+                    R.id.deleteText -> {
                     AlertDialog.Builder(holder.itemView.context)
                         .setTitle("Delete")
                         .setIcon(R.drawable.ic_warning)
@@ -107,12 +110,15 @@ class DailyTodoAdapter(private val listener: OnItemClickListener) : RecyclerView
     }
 
     interface OnItemClickListener {
-       // fun onEditClick(userTask: UserTask)
+        fun onEditClick(userTask: UserTask)
         fun onDeleteClick(userTask: UserTask)
         fun setTaskCompleted(userTask: UserTask)
+
     }
 
     override fun getItemCount(): Int {
         return data.size
     }
+
+
 }

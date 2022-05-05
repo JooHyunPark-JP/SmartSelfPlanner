@@ -16,7 +16,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginBottom="10dp"
-            android:text="My Dashboard"
+            android:text="My Planner :)"
             android:textSize="25sp"
             android:textStyle="bold"/>
 

@@ -21,7 +21,6 @@ class DailyAddTodoFragment : Fragment() {
     private lateinit var viewModel: DailyAddTodoViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(

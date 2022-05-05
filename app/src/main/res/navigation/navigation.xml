@@ -8,8 +8,8 @@
     <fragment
         android:id="@+id/userMainFragment"
         android:name="com.example.smartselfplanner.UserMainPage.UserMainFragment"
-        android:label="fragment_user_main"
-        tools:layout="@layout/fragment_user_main" >
+        android:label="My Planner Dashboard"
+        tools:layout="@layout/fragment_user_main">
         <action
             android:id="@+id/action_userMainFragment_to_todoListFragment"
             app:destination="@id/todoListFragment" />
@@ -20,8 +20,8 @@
     <fragment
         android:id="@+id/todoListFragment"
         android:name="com.example.smartselfplanner.TodoList.TodoListFragment"
-        android:label="fragment_todo_list"
-        tools:layout="@layout/fragment_todo_list" >
+        android:label="To-do Planner"
+        tools:layout="@layout/fragment_todo_list">
         <action
             android:id="@+id/action_todoListFragment_to_addTodoFragment"
             app:destination="@id/addTodoFragment" />
@@ -29,18 +29,29 @@
     <fragment
         android:id="@+id/addTodoFragment"
         android:name="com.example.smartselfplanner.TodoList.AddTodo.AddTodoFragment"
-        android:label="fragment_add_todo"
+        android:label="Add Todo tasks"
         tools:layout="@layout/fragment_add_todo" />
     <fragment
         android:id="@+id/dailyTodoFragment"
         android:name="com.example.smartselfplanner.DailyToDo.DailyTodoFragment"
-        android:label="DailyTodoFragment" >
+        android:label="Daily Tasks Planner">
         <action
             android:id="@+id/action_dailyTodoFragment_to_dailyAddTodoFragment"
             app:destination="@id/dailyAddTodoFragment" />
+        <action
+            android:id="@+id/action_dailyTodoFragment_to_dailyEditTodoFragment"
+            app:destination="@id/dailyEditTodoFragment" />
     </fragment>
     <fragment
         android:id="@+id/dailyAddTodoFragment"
         android:name="com.example.smartselfplanner.DailyToDo.DailyAddTodo.DailyAddTodoFragment"
-        android:label="DailyAddTodoFragment" />
+        android:label="Add daily Task" />
+    <fragment
+        android:id="@+id/dailyEditTodoFragment"
+        android:name="com.example.smartselfplanner.DailyToDo.DailyEditTodo.DailyEditTodoFragment"
+        android:label="Edit Daily To do" >
+        <argument
+            android:name="dailyUserTask"
+            app:argType="com.example.smartselfplanner.Database.UserTask" />
+    </fragment>
 </navigation>

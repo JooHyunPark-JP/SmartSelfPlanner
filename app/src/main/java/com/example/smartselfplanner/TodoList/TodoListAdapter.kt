@@ -51,7 +51,7 @@ class TodoListAdapter(private val listener: OnItemClickListener, private val sho
         holder.isCheckedCheckBox.setOnCheckedChangeListener { _, ischeck ->
             if (ischeck)
             {
-                selectItem(holder,currentItem,position)
+                selectItem(currentItem,position)
                 listener.oncheckboxClicked(currentItem)
             }
             else {
@@ -131,7 +131,7 @@ class TodoListAdapter(private val listener: OnItemClickListener, private val sho
         }
     }
 
-    private fun selectItem(holder: TodoListAdapter.todoListViewHolder, currentItem: UserTask, position: Int) {
+    private fun selectItem(currentItem: UserTask, position: Int) {
         itemSelectedList.add(position)
         currentItem.isChecked = true
         showMenuDelete(true)
@@ -163,7 +163,6 @@ class TodoListAdapter(private val listener: OnItemClickListener, private val sho
             listener.onMultipleSelect()
         }
         notifyDataSetChanged()
-
 
     }
 }

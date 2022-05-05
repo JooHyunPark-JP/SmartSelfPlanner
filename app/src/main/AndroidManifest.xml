@@ -18,6 +18,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <receiver
+            android:name=".Receiver.AlarmReceiver"
+            android:enabled="true"
+            android:exported="false">
+        </receiver>
+        <receiver
+            android:name=".Receiver.SnoozeReceiver"
+            android:enabled="true"
+            android:exported="false">
+        </receiver>
     </application>
 
 </manifest>
