@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.smartselfplanner.Database.UserTask
 import com.example.smartselfplanner.R
 import com.example.smartselfplanner.TodoList.TodoListAdapter
+import org.w3c.dom.Text
 
 
 class DailyTodoAdapter(private val listener: OnItemClickListener) : RecyclerView.Adapter<DailyTodoAdapter.AddTodoListViewHolder>() {
@@ -32,6 +33,13 @@ class DailyTodoAdapter(private val listener: OnItemClickListener) : RecyclerView
     override fun onBindViewHolder(holder: AddTodoListViewHolder, position: Int) {
         val currentItem = data[position]
         holder.todoName.text = currentItem.Task
+        if (currentItem.dailyTimerHour.toString() != "null"){
+            holder.timerTime.text =
+                currentItem.dailyTimerHour.toString() + "h" + currentItem.dailyTimerMin.toString() + "m" + currentItem.dailyTimerSec.toString() + "s"
+        }
+        else{
+            holder.timerTime.text = ""
+        }
 
         if (currentItem.TaskCompleted == true){
             holder.itemView.setBackgroundColor(Color.GRAY)
@@ -107,6 +115,7 @@ class DailyTodoAdapter(private val listener: OnItemClickListener) : RecyclerView
         //  val wifiNameNumber: TextView = itemView.findViewById(R.id.wifiNameNumber)
         val todoName: TextView = itemView.findViewById(R.id.todoTask)
         val todoListEditbutton: ImageButton = itemView.findViewById(R.id.todoMenu)
+        val timerTime : TextView = itemView.findViewById(R.id.timerTime)
     }
 
     interface OnItemClickListener {

@@ -22,6 +22,14 @@ class DailyAddTodoViewModel (
         }
     }
 
+    fun addTodoWithTimer(dailyToDo: String, hour: Int, min: Int, sec: Int)  {
+        viewModelScope.launch {
+            val newTodo = UserTask(TaskType = "UserDailyToDo", Task = dailyToDo, TaskCompleted = false, dailyTimerHour = hour, dailyTimerMin = min, dailyTimerSec = sec )
+            insert(newTodo)
+            // recentTodo.value = getRecentWifiFromDatabase()
+        }
+    }
+
     private suspend fun insert(userTask: UserTask) {
         withContext(Dispatchers.IO) {
             database.insert(userTask)

@@ -34,12 +34,10 @@ class DailyTodoFragment : Fragment(), DailyTodoAdapter.OnItemClickListener {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentDailyTodoBinding.inflate(inflater)
-
         val application = requireNotNull(this.activity).application
         val datasource = UserTaskDatabase.getInstance(application).UserTaskDatabaseDao
         val viewModelFactory = DailyTodoViewModelFactory(datasource,application)
         viewModel = ViewModelProvider(this, viewModelFactory).get(DailyTodoViewModel::class.java)
-
 
         val adapter = DailyTodoAdapter(this)
         //bind recyclerview to TodoListAdapter
@@ -47,10 +45,11 @@ class DailyTodoFragment : Fragment(), DailyTodoAdapter.OnItemClickListener {
         binding.toDoRecyclerView.layoutManager = LinearLayoutManager(this.context)
         binding.toDoRecyclerView.setHasFixedSize(true)
 
+
+
         binding.AddDailyTaskButton.setOnClickListener {
             this.findNavController().navigate(DailyTodoFragmentDirections.actionDailyTodoFragmentToDailyAddTodoFragment())
         }
-
 
         viewModel.dailyTodoList.observe(viewLifecycleOwner, Observer {
             adapter.data = it

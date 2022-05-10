@@ -18,10 +18,19 @@ data class UserTask(
     @ColumnInfo(name = "task_type")
     val TaskType: String = "",
 
-   @ColumnInfo(name = "task_completed")
+    @ColumnInfo(name = "task_completed")
     var TaskCompleted: Boolean? = null,
 
     @ColumnInfo(name = "is_checked")
-    var isChecked: Boolean? = null
+    var isChecked: Boolean? = null,
+
+    @ColumnInfo(name = "timer_Hour")
+    var dailyTimerHour: Int? = null,
+
+@ColumnInfo(name = "timer_Min")
+    var dailyTimerMin: Int? = null,
+
+@ColumnInfo(name = "timer_Sec")
+    var dailyTimerSec: Int? = null
 
 ) : Parcelable

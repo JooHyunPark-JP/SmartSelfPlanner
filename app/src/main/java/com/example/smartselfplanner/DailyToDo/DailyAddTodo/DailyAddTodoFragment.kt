@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import com.example.smartselfplanner.Database.UserTaskDatabase
 import com.example.smartselfplanner.R
@@ -17,6 +18,9 @@ import com.example.smartselfplanner.databinding.FragmentDailyTodoBinding
 
 class DailyAddTodoFragment : Fragment() {
 
+    var sec : Int = 0
+    var min : Int = 0
+    var hour : Int = 0
     lateinit var binding : FragmentDailyAddTodoBinding
     private lateinit var viewModel: DailyAddTodoViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,6 +33,23 @@ class DailyAddTodoFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentDailyAddTodoBinding.inflate(inflater)
+        binding.numPickerHour.maxValue = 24
+        binding.numPickerMin.maxValue = 59
+        binding.numPickerSec.maxValue = 59
+
+        binding.numPickerHour.setOnValueChangedListener { numberPicker, i, i2 ->
+            hour = numberPicker.value
+        }
+        binding.numPickerMin.setOnValueChangedListener { numberPicker, i, i2 ->
+            min = numberPicker.value
+        }
+        binding.numPickerSec.setOnValueChangedListener { numberPicker, i, i2 ->
+            sec = numberPicker.value
+        }
+
+        binding.setTimerCheckBox.setOnCheckedChangeListener { compoundButton, ischecked ->
+            binding.dailyTaskTimer.isVisible = ischecked
+        }
 
         //Database setup
         val application = requireNotNull(this.activity).application
@@ -40,12 +61,20 @@ class DailyAddTodoFragment : Fragment() {
 
         binding.confirmButton.setOnClickListener {
             val todoString = binding.AddTodoText.text.toString()
-            viewModel.addTodo(todoString)
-            Toast.makeText(context,"Your Todo has been created!", Toast.LENGTH_SHORT).show()
-            activity?.onBackPressed()
+            if (binding.setTimerCheckBox.isChecked){
+                viewModel.addTodoWithTimer(todoString,hour,min,sec)
+                Toast.makeText(context,"Your Todo has been created! with timer!", Toast.LENGTH_SHORT).show()
+                activity?.onBackPressed()
+            }
+            else{
+                viewModel.addTodo(todoString)
+                Toast.makeText(context,"Your Todo has been created!", Toast.LENGTH_SHORT).show()
+                activity?.onBackPressed()
+            }
+          //  Toast.makeText(context,"Your Todo has been created!", Toast.LENGTH_SHORT).show()
+
+
         }
-
-
 
         return binding.root
     }

@@ -32,6 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:minWidth="0dp"
+                android:layout_gravity="center"
                 android:minHeight="0dp" />
 
             <TextView
@@ -39,11 +40,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="SubTitle"
+                android:layout_gravity="center"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
         </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/timerTime"
+            android:text="testing"
+            android:layout_gravity="center"/>
 
         <ImageButton
             android:id="@+id/todoMenu"
