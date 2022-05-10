@@ -33,7 +33,7 @@ class DailyAddTodoFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentDailyAddTodoBinding.inflate(inflater)
-        binding.numPickerHour.maxValue = 24
+        binding.numPickerHour.maxValue = 23
         binding.numPickerMin.maxValue = 59
         binding.numPickerSec.maxValue = 59
 

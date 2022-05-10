@@ -46,15 +46,14 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toDoRecyclerView" />
 
-        <Button
+        <ImageView
             android:id="@+id/deleteButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:background="@drawable/todo_list_add_button"
             android:padding="@dimen/layout_padding"
             android:text="-"
-            android:visibility="invisible"
+            android:src="@drawable/ic_timer"
             android:textColor="@color/black"
             android:textSize="@dimen/button_text_size"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -65,7 +64,6 @@
             android:id="@+id/on_off_switch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/AddDailyTaskButton"
             app:layout_constraintTop_toBottomOf="@+id/toDoRecyclerView" />
@@ -76,23 +74,8 @@
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/on_off_switch"
             app:layout_constraintStart_toEndOf="@+id/deleteButton"
             app:layout_constraintTop_toBottomOf="@+id/toDoRecyclerView" />
-
-        <Spinner
-            android:id="@+id/minutes_spinner"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:entries="@array/egg_array"
-            android:prompt="@string/egg_prompt"
-
-            app:layout_constraintBottom_toBottomOf="@+id/textView"
-            app:layout_constraintEnd_toEndOf="@+id/on_off_switch"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toDoRecyclerView" />
-
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

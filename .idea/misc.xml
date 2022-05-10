@@ -11,6 +11,7 @@
         <entry key="..\:/Users/pjh06/AndroidStudioProjects/SmartSelfPlanner/app/src/main/res/drawable/ic_education.xml" value="0.169" />
         <entry key="..\:/Users/pjh06/AndroidStudioProjects/SmartSelfPlanner/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1025" />
         <entry key="..\:/Users/pjh06/AndroidStudioProjects/SmartSelfPlanner/app/src/main/res/drawable/ic_more.xml" value="0.1575" />
+        <entry key="..\:/Users/pjh06/AndroidStudioProjects/SmartSelfPlanner/app/src/main/res/drawable/ic_timer.xml" value="0.159" />
         <entry key="..\:/Users/pjh06/AndroidStudioProjects/SmartSelfPlanner/app/src/main/res/drawable/ic_work.xml" value="0.169" />
         <entry key="..\:/Users/pjh06/AndroidStudioProjects/SmartSelfPlanner/app/src/main/res/drawable/todo_list_add_button.xml" value="0.134" />
         <entry key="..\:/Users/pjh06/AndroidStudioProjects/SmartSelfPlanner/app/src/main/res/layout/activity_main.xml" value="0.264" />
@@ -24,7 +25,7 @@
         <entry key="..\:/Users/pjh06/AndroidStudioProjects/SmartSelfPlanner/app/src/main/res/layout/fragment_user_main.xml" value="0.25" />
         <entry key="..\:/Users/pjh06/AndroidStudioProjects/SmartSelfPlanner/app/src/main/res/layout/fragment_user_main_page.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/pjh06/AndroidStudioProjects/SmartSelfPlanner/app/src/main/res/layout/todo_item_list.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/pjh06/AndroidStudioProjects/SmartSelfPlanner/app/src/main/res/layout/todo_list_items.xml" value="0.1872146118721461" />
+        <entry key="..\:/Users/pjh06/AndroidStudioProjects/SmartSelfPlanner/app/src/main/res/layout/todo_list_items.xml" value="0.25" />
         <entry key="..\:/Users/pjh06/AndroidStudioProjects/SmartSelfPlanner/app/src/main/res/menu/action_mode_menu.xml" value="0.2078125" />
         <entry key="..\:/Users/pjh06/AndroidStudioProjects/SmartSelfPlanner/app/src/main/res/menu/todo_menu.xml" value="0.264" />
       </map>

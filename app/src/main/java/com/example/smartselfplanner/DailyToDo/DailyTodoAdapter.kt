@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.example.smartselfplanner.Database.UserTask
 import com.example.smartselfplanner.R
@@ -33,9 +34,11 @@ class DailyTodoAdapter(private val listener: OnItemClickListener) : RecyclerView
     override fun onBindViewHolder(holder: AddTodoListViewHolder, position: Int) {
         val currentItem = data[position]
         holder.todoName.text = currentItem.Task
+        holder.timerSwitch.isVisible = false
         if (currentItem.dailyTimerHour.toString() != "null"){
             holder.timerTime.text =
                 currentItem.dailyTimerHour.toString() + "h" + currentItem.dailyTimerMin.toString() + "m" + currentItem.dailyTimerSec.toString() + "s"
+            holder.timerSwitch.isVisible = true
         }
         else{
             holder.timerTime.text = ""
@@ -66,6 +69,20 @@ class DailyTodoAdapter(private val listener: OnItemClickListener) : RecyclerView
                 }
             }
 
+
+
+        holder.timerSwitch.setOnCheckedChangeListener { _, ischecked ->
+            if (ischecked)
+            {
+                listener.setAlarm(currentItem, holder.timerSwitch)
+
+            }
+
+           else {
+                listener.setAlarmOff(currentItem,holder.timerSwitch)
+            }
+        }
+
         holder.todoListEditbutton.setOnClickListener {
             val context = it.context
             val popupMenu = PopupMenu(context, holder.itemView, Gravity.END)
@@ -76,7 +93,6 @@ class DailyTodoAdapter(private val listener: OnItemClickListener) : RecyclerView
                         listener.onEditClick(currentItem)
                         true
                     }
-
                     R.id.deleteText -> {
                     AlertDialog.Builder(holder.itemView.context)
                         .setTitle("Delete")
@@ -116,14 +132,18 @@ class DailyTodoAdapter(private val listener: OnItemClickListener) : RecyclerView
         val todoName: TextView = itemView.findViewById(R.id.todoTask)
         val todoListEditbutton: ImageButton = itemView.findViewById(R.id.todoMenu)
         val timerTime : TextView = itemView.findViewById(R.id.timerTime)
+        val timerSwitch : Switch = itemView.findViewById(R.id.timerSwitch)
     }
 
     interface OnItemClickListener {
         fun onEditClick(userTask: UserTask)
         fun onDeleteClick(userTask: UserTask)
         fun setTaskCompleted(userTask: UserTask)
-
+        fun setAlarm(userTask: UserTask, timer:Switch)
+        fun setAlarmOff(userTask: UserTask,timer: Switch)
     }
+
+
 
     override fun getItemCount(): Int {
         return data.size

@@ -38,10 +38,14 @@ class DailyTodoViewModel(
     private val REQUEST_CODE = 0
     private val TRIGGER_TIME = "TRIGGER_AT"
 
+    var hour : Int = 0
+    var min : Int = 0
+    var sec : Int = 0
+
+    private val hourTimer: Long = 3600000L
     private val minute: Long = 60_000L
     private val second: Long = 1_000L
 
-    private val timerLengthOptions: IntArray
     private val notifyPendingIntent: PendingIntent
 
     private val alarmManager = app.getSystemService(Context.ALARM_SERVICE) as AlarmManager
@@ -49,9 +53,7 @@ class DailyTodoViewModel(
         app.getSharedPreferences("com.example.smartselfplanner", Context.MODE_PRIVATE)
     private val notifyIntent = Intent(app, AlarmReceiver::class.java)
 
-    private val _timeSelection = MutableLiveData<Int>()
-    val timeSelection: LiveData<Int>
-        get() = _timeSelection
+
 
     private val _elapsedTime = MutableLiveData<Long>()
     val elapsedTime: LiveData<Long>
@@ -71,7 +73,7 @@ class DailyTodoViewModel(
             getApplication(),
             REQUEST_CODE,
             notifyIntent,
-            PendingIntent.FLAG_UPDATE_CURRENT
+            PendingIntent.FLAG_NO_CREATE
         ) != null
 
         Log.d("alarmon",  _alarmOn.value.toString())
@@ -84,7 +86,6 @@ class DailyTodoViewModel(
         )
         Log.d("nitifyintent",  notifyPendingIntent.toString())
 
-        timerLengthOptions = app.resources.getIntArray(R.array.minutes_array)
 
         //If alarm is not null, resume the timer back for this alarm
         if (_alarmOn.value!!) {
@@ -103,7 +104,6 @@ class DailyTodoViewModel(
                         resetTimer()
                     }
                 }
-
                 override fun onFinish() {
                     resetTimer()
                 }
@@ -126,22 +126,24 @@ class DailyTodoViewModel(
         _alarmOn.value = false
     }
 
-    fun setAlarm(isChecked: Boolean) {
+    fun setAlarm(isChecked: Boolean, userTask: UserTask) {
+        hour = userTask.dailyTimerHour!!
+        min = userTask.dailyTimerMin!!
+        sec = userTask.dailyTimerSec!!
+        Log.d("AlarmTesting", "$hour + $min + $sec")
         when (isChecked) {
             /*true -> timeSelection.value?.let { startTimer(it) }*/
-            true -> startTimer(second * 5)
+            true -> startTimer(hour, min, sec)
             false -> cancelNotification()
         }
     }
 
-    fun setTimeSelected(timerLengthSelection: Int) {
-        _timeSelection.value = timerLengthSelection
-    }
+
 
     /**
      * Creates a new alarm, notification and timer
      */
-    private fun startTimer(timerLengthSelection: Long) {
+    private fun startTimer(hour:Int, min:Int, sec:Int) {
         _alarmOn.value?.let {
             if (!it) {
                 _alarmOn.value = true
@@ -150,7 +152,7 @@ class DailyTodoViewModel(
                     else ->timerLengthOptions[timerLengthSelection] * minute
                 }*/
 
-                val triggerTime = SystemClock.elapsedRealtime() + timerLengthSelection
+                val triggerTime = SystemClock.elapsedRealtime() + (hour * hourTimer) + (min * minute) + (sec * second)
 
                 // TODO: Step 1.5 get an instance of NotificationManager and call sendNotification
 
@@ -175,7 +177,7 @@ class DailyTodoViewModel(
             prefs.edit().putLong(TRIGGER_TIME, triggerTime).apply()
         }
 
-    private fun cancelNotification() {
+     fun cancelNotification() {
         resetTimer()
         alarmManager.cancel(notifyPendingIntent)
     }

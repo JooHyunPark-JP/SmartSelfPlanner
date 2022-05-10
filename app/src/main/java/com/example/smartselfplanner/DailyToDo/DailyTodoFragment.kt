@@ -6,9 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Switch
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.smartselfplanner.Database.UserTask
@@ -45,8 +48,6 @@ class DailyTodoFragment : Fragment(), DailyTodoAdapter.OnItemClickListener {
         binding.toDoRecyclerView.layoutManager = LinearLayoutManager(this.context)
         binding.toDoRecyclerView.setHasFixedSize(true)
 
-
-
         binding.AddDailyTaskButton.setOnClickListener {
             this.findNavController().navigate(DailyTodoFragmentDirections.actionDailyTodoFragmentToDailyAddTodoFragment())
         }
@@ -55,25 +56,30 @@ class DailyTodoFragment : Fragment(), DailyTodoAdapter.OnItemClickListener {
             adapter.data = it
         })
 
+/*
         viewModel.isAlarmOn.observe(viewLifecycleOwner, Observer { alarmOn->
             binding.onOffSwitch.isChecked = alarmOn
 
             binding.onOffSwitch.setOnCheckedChangeListener { _, ischecked ->
                 if(ischecked)
                 {
-                    viewModel.setAlarm(true)
+                   // viewModel.setAlarm(true)
+
                     Log.d("switchChanged", "On ")
                 }
 
                 else
                 {
-                    viewModel.setAlarm(false)
+                    //viewModel.setAlarm(false)
                     Log.d("switchChanged2", "Off ")
                 }
             }
-        })
+        })*/
+
+
 
         viewModel.elapsedTime.observe(viewLifecycleOwner, Observer { time ->
+
             binding.textView.setElapsedTime(time)
         })
 
@@ -104,6 +110,19 @@ class DailyTodoFragment : Fragment(), DailyTodoAdapter.OnItemClickListener {
         viewModel.onTaskSelected(userTask)
     }
 
+    override fun setAlarm(userTask: UserTask, timer:Switch) {
+/*        viewModel.isAlarmOn.observe(viewLifecycleOwner, Observer { alarmOn ->
+            timer.isChecked = alarmOn*/
+            viewModel.cancelNotification()
+            viewModel.setAlarm(true,userTask)
+            Toast.makeText(context, "Switch ON!", Toast.LENGTH_SHORT).show()
+
+
+    }
+
+    override fun setAlarmOff(userTask: UserTask,timer:Switch) {
+        viewModel.setAlarm(false,userTask)
+    }
 
 
 
