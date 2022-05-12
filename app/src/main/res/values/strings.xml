@@ -11,12 +11,12 @@
     <string name="fcm_message">FCM Message</string>
     <string name="message_subscribe_failed">Failed to subscribe to topic</string>
     <string name="message_subscribed">Subscribed to topic</string>
-    <string name="egg_notification_channel_id" translatable="false">egg_channel</string>
-    <string name="egg_notification_channel_name" translatable="true">Egg</string>
+    <string name="dailyTask_channel_id" translatable="false">dailyTask_channel</string>
+    <string name="dailyTask_channel_name" translatable="true">DailyTask</string>
     <string name="breakfast_notification_channel_id" translatable="false">fcm_default_channel</string>
     <string name="breakfast_notification_channel_name" translatable="true">Breakfast</string>
-    <string name="eggs_ready">It is time! Bon appetit!</string>
-    <string name="timer_running">Egg timer is running...</string>
-    <string name="breakfast_notification_channel_description">Breakfast reminder</string>
+    <string name="task_Done_Message">Your daily task is done!</string>
+    <string name="timer_running">Daily Task timer is running...</string>
+    <string name="daily_task_notification_channel_description">DailyTask reminder</string>
     <string name="snooze">Snooze</string>
 </resources>

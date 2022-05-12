@@ -12,9 +12,6 @@ class DailyEditTodoViewModel(
     val database: UserTaskDatabaseDao
 ) : AndroidViewModel(Application()) {
 
-
-
-
     val testing = userTask.Task
 
 }

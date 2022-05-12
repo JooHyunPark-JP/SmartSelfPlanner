@@ -1,5 +1,9 @@
 package com.example.smartselfplanner.DailyToDo
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -79,7 +83,6 @@ class DailyTodoFragment : Fragment(), DailyTodoAdapter.OnItemClickListener {
 
 
         viewModel.elapsedTime.observe(viewLifecycleOwner, Observer { time ->
-
             binding.textView.setElapsedTime(time)
         })
 
@@ -95,6 +98,13 @@ class DailyTodoFragment : Fragment(), DailyTodoAdapter.OnItemClickListener {
                 }
             }
         }
+
+        // call create channel
+        createChannel(
+            getString(R.string.dailyTask_channel_id),
+            getString(R.string.dailyTask_channel_name)
+        )
+
         return binding.root
     }
 
@@ -122,6 +132,34 @@ class DailyTodoFragment : Fragment(), DailyTodoAdapter.OnItemClickListener {
 
     override fun setAlarmOff(userTask: UserTask,timer:Switch) {
         viewModel.setAlarm(false,userTask)
+    }
+
+    //Create Channel for notification for dailytasks.
+    private fun createChannel(channelId: String, channelName: String) {
+        //START create a channel
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val notificationChannel = NotificationChannel(
+                channelId,
+                channelName,
+                //change importance
+                NotificationManager.IMPORTANCE_HIGH
+            )// disable badges for this channel
+                .apply {
+                    setShowBadge(false)
+                }
+
+            notificationChannel.enableLights(true)
+            notificationChannel.lightColor = Color.RED
+            notificationChannel.enableVibration(true)
+            notificationChannel.description = getString(R.string.daily_task_notification_channel_description)
+
+            val notificationManager = requireActivity().getSystemService(
+                NotificationManager::class.java
+            )
+            notificationManager.createNotificationChannel(notificationChannel)
+
+        }
+        // TODO: Step 1.6 END create a channel
     }
 
 

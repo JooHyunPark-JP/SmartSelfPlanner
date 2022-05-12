@@ -2,6 +2,7 @@ package com.example.smartselfplanner.DailyToDo
 
 import android.app.AlarmManager
 import android.app.Application
+import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
@@ -10,6 +11,7 @@ import android.os.CountDownTimer
 import android.os.SystemClock
 import android.util.Log
 import androidx.core.app.AlarmManagerCompat
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -18,6 +20,8 @@ import com.example.smartselfplanner.Database.UserTask
 import com.example.smartselfplanner.Database.UserTaskDatabaseDao
 import com.example.smartselfplanner.R
 import com.example.smartselfplanner.Receiver.AlarmReceiver
+import com.example.smartselfplanner.utils.cancelNotifications
+import com.example.smartselfplanner.utils.sendNotification
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -154,9 +158,14 @@ class DailyTodoViewModel(
 
                 val triggerTime = SystemClock.elapsedRealtime() + (hour * hourTimer) + (min * minute) + (sec * second)
 
-                // TODO: Step 1.5 get an instance of NotificationManager and call sendNotification
+                // call cancel notification everytime timer is start.
+                val notificationManager =
+                    ContextCompat.getSystemService(
+                        app,
+                        NotificationManager::class.java
+                    ) as NotificationManager
+                notificationManager.cancelNotifications()
 
-                // TODO: Step 1.15 call cancel notification
                 AlarmManagerCompat.setExactAndAllowWhileIdle(
                     alarmManager,
                     AlarmManager.ELAPSED_REALTIME_WAKEUP,
