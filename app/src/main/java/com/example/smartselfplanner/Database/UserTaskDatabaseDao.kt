@@ -15,7 +15,7 @@ interface UserTaskDatabaseDao {
      fun update(task:UserTask)
 
     @Query("SELECT * FROM user_task_table WHERE TaskId = :key ")
-    fun get(key: Long): UserTask
+    suspend fun get(key: Long): UserTask
 
     @Query("DELETE From user_task_table")
     fun clear()

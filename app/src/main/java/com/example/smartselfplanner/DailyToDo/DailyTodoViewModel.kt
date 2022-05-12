@@ -221,4 +221,24 @@ class DailyTodoViewModel(
     sealed class TasksEvent {
         data class NavigateToEditTodoScreen(val userTask: UserTask) : TasksEvent()
     }
+
+    fun onMultipleDeleted() = viewModelScope.launch {
+        deleteMultipleRow()
+    }
+
+    private suspend fun deleteMultipleRow(){
+        withContext(Dispatchers.IO){
+            database.multipleDelete(true)
+        }
+    }
+
+    fun onCheckBoxChanged(userTask: UserTask) = viewModelScope.launch {
+        changeCheckBoxState(userTask)
+    }
+
+    private suspend fun changeCheckBoxState(task: UserTask){
+        withContext(Dispatchers.IO){
+            database.update(task)
+        }
+    }
 }

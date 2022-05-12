@@ -12,10 +12,7 @@ import com.example.smartselfplanner.utils.sendNotification
 class AlarmReceiver: BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
-        // TODO: Step 1.10 [Optional] remove toast
-       //Toast.makeText(context, context.getText(R.string.eggs_ready), Toast.LENGTH_SHORT).show()
-        Toast.makeText(context, "Your Task is done!", Toast.LENGTH_SHORT).show()
-        // TODO: Step 1.9 add call to sendNotification
+       // Toast.makeText(context, "Your Task is done!", Toast.LENGTH_SHORT).show()
 
         // TODO: Step 1.9 add call to sendNotification
         val notificationManager = ContextCompat.getSystemService(

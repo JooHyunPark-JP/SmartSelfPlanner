@@ -1,15 +1,14 @@
 package com.example.smartselfplanner.DailyToDo
 
+import android.app.AlertDialog
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Switch
 import android.widget.Toast
 import androidx.lifecycle.Observer
@@ -34,6 +33,14 @@ class DailyTodoFragment : Fragment(), DailyTodoAdapter.OnItemClickListener {
 
     lateinit var binding : FragmentDailyTodoBinding
     private lateinit var viewModel: DailyTodoViewModel
+    private val adapter = DailyTodoAdapter(this) {show -> showDeleteMenu(show)}
+
+    private var mainmenu: Menu? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,7 +53,7 @@ class DailyTodoFragment : Fragment(), DailyTodoAdapter.OnItemClickListener {
         val viewModelFactory = DailyTodoViewModelFactory(datasource,application)
         viewModel = ViewModelProvider(this, viewModelFactory).get(DailyTodoViewModel::class.java)
 
-        val adapter = DailyTodoAdapter(this)
+
         //bind recyclerview to TodoListAdapter
         binding.toDoRecyclerView.adapter = adapter
         binding.toDoRecyclerView.layoutManager = LinearLayoutManager(this.context)
@@ -79,8 +86,6 @@ class DailyTodoFragment : Fragment(), DailyTodoAdapter.OnItemClickListener {
                 }
             }
         })*/
-
-
 
         viewModel.elapsedTime.observe(viewLifecycleOwner, Observer { time ->
             binding.textView.setElapsedTime(time)
@@ -160,6 +165,48 @@ class DailyTodoFragment : Fragment(), DailyTodoAdapter.OnItemClickListener {
 
         }
         // TODO: Step 1.6 END create a channel
+    }
+
+    fun showDeleteMenu(show: Boolean){
+        mainmenu?.findItem(R.id.menu_delete)?.isVisible = show
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        mainmenu = menu
+        inflater.inflate(R.menu.action_mode_menu, menu)
+        showDeleteMenu(false)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId)
+        {
+            R.id.menu_delete -> {delete()}
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+
+    private fun delete(){
+        val alertDialog = AlertDialog.Builder(this.context)
+        alertDialog.setTitle("Delete")
+        alertDialog.setMessage("Do you really want to delete these?")
+        alertDialog.setPositiveButton("Delete"){_,_ ->
+            adapter.deleteSelectedItem()
+            showDeleteMenu(false)
+        }
+        alertDialog.setNegativeButton("Cancel"){_,_ ->
+
+        }
+        alertDialog.show()
+    }
+
+    override fun onMultipleSelect() {
+        viewModel.onMultipleDeleted()
+    }
+
+    override fun oncheckboxClicked(userTask: UserTask) {
+        viewModel.onCheckBoxChanged(userTask)
     }
 
 

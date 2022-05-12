@@ -11,41 +11,133 @@
 
 
         <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!--            <EditText
+                        android:id="@+id/AddTodoText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Task name"
+                        android:inputType="text" />-->
+
+        <EditText
+            android:id="@+id/editTodoText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:hint="Task name"
+            android:inputType="text" />
+        <CheckBox
+            android:id="@+id/setTimerCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Set timer"
+            ></CheckBox>
 
-            <!--            <EditText
-                            android:id="@+id/AddTodoText"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="Task name"
-                            android:inputType="text" />-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/dailyTaskTimer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:visibility="gone"
+            android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/EditTodoText"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Task name"
-                android:inputType="text" />
-
-            <Button
-                android:id="@+id/confirmButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:background="@drawable/todo_list_add_button"
-                android:padding="@dimen/layout_padding"
-                android:text="Edit"
-                android:textColor="@color/black"
-                android:textSize="@dimen/button_text_size"
+                android:layout_margin="10dp"
+                android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/textHour"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:text="Hour"
+                    app:layout_constraintBottom_toTopOf="@+id/numPickerHour"
+                    app:layout_constraintEnd_toEndOf="@+id/numPickerHour"
+                    app:layout_constraintStart_toStartOf="@+id/numPickerHour"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/textMin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:text="Min"
+                    app:layout_constraintBottom_toTopOf="@+id/numPickerMin"
+                    app:layout_constraintEnd_toEndOf="@+id/numPickerMin"
+                    app:layout_constraintLeft_toRightOf="@+id/textHour"
+                    app:layout_constraintStart_toStartOf="@+id/numPickerMin"
+                    app:layout_constraintTop_toTopOf="parent"></TextView>
+
+                <TextView
+                    android:id="@+id/textSec"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:text="Second"
+                    app:layout_constraintBottom_toTopOf="@+id/numPickerSec"
+                    app:layout_constraintEnd_toEndOf="@+id/numPickerSec"
+                    app:layout_constraintLeft_toRightOf="@+id/textMin"
+                    app:layout_constraintStart_toStartOf="@+id/numPickerSec"
+                    app:layout_constraintTop_toTopOf="parent"></TextView>
+                <NumberPicker
+                    android:id="@+id/numPickerHour"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <NumberPicker
+                    android:id="@+id/numPickerMin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@+id/numPickerHour"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <NumberPicker
+                    android:id="@+id/numPickerSec"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@+id/numPickerMin"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <Button
+            android:id="@+id/confirmButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:background="@drawable/todo_list_add_button"
+            android:padding="@dimen/layout_padding"
+            android:text="Edit"
+            android:textColor="@color/black"
+            android:textSize="@dimen/button_text_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />/>
+
+    </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

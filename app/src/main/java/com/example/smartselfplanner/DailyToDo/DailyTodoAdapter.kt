@@ -1,6 +1,7 @@
 package com.example.smartselfplanner.DailyToDo
 
 import android.app.AlertDialog
+import android.content.DialogInterface
 import android.graphics.Color
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -15,13 +16,15 @@ import com.example.smartselfplanner.TodoList.TodoListAdapter
 import org.w3c.dom.Text
 
 
-class DailyTodoAdapter(private val listener: OnItemClickListener) : RecyclerView.Adapter<DailyTodoAdapter.AddTodoListViewHolder>() {
+class DailyTodoAdapter(private val listener: OnItemClickListener,  private val showMenuDelete: (Boolean) -> Unit) : RecyclerView.Adapter<DailyTodoAdapter.AddTodoListViewHolder>() {
 
-    var data = listOf<UserTask>()
+    var data = mutableListOf<UserTask>()
         set(value) {
             field = value
             notifyDataSetChanged()
         }
+
+    private val itemSelectedList = mutableListOf<Int>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AddTodoListViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(
@@ -35,6 +38,8 @@ class DailyTodoAdapter(private val listener: OnItemClickListener) : RecyclerView
         val currentItem = data[position]
         holder.todoName.text = currentItem.Task
         holder.timerSwitch.isVisible = false
+
+
         if (currentItem.dailyTimerHour.toString() != "null"){
             holder.timerTime.text =
                 currentItem.dailyTimerHour.toString() + "h" + currentItem.dailyTimerMin.toString() + "m" + currentItem.dailyTimerSec.toString() + "s"
@@ -44,17 +49,43 @@ class DailyTodoAdapter(private val listener: OnItemClickListener) : RecyclerView
             holder.timerTime.text = ""
         }
 
+        if (itemSelectedList.isEmpty()) {
+            holder.isCheckedCheckBox.isChecked = false
+        }
+
+
+
         if (currentItem.TaskCompleted == true){
             holder.itemView.setBackgroundColor(Color.GRAY)
             holder.itemView.isClickable = false
             holder.itemView.isFocusable = false
-            holder.todoListEditbutton.setBackgroundColor(Color.GRAY)
+            holder.todoListMenu.setBackgroundColor(Color.GRAY)
+            holder.todoListMenu.setImageResource(R.drawable.ic_check)
         }
         else {
             holder.itemView.setBackgroundColor(Color.WHITE)
             holder.itemView.isClickable = true
             holder.itemView.isFocusable = true
-            holder.todoListEditbutton.setBackgroundColor(Color.WHITE)
+            holder.todoListMenu.setBackgroundColor(Color.WHITE)
+            holder.todoListMenu.setImageResource(R.drawable.ic_more)
+        }
+
+        holder.isCheckedCheckBox.setOnCheckedChangeListener { _, ischeck ->
+            if (ischeck)
+            {
+                selectItem(currentItem,position)
+                listener.oncheckboxClicked(currentItem)
+            }
+            else {
+                if (itemSelectedList.contains(position)) {
+                    currentItem.isChecked = false
+                    listener.oncheckboxClicked(currentItem)
+                    itemSelectedList.removeAt(position)
+                    if (itemSelectedList.isEmpty()) {
+                        showMenuDelete(false)
+                    }
+                }
+            }
         }
 
             holder.itemView.setOnClickListener {
@@ -67,15 +98,39 @@ class DailyTodoAdapter(private val listener: OnItemClickListener) : RecyclerView
                     ).show()
                     listener.setTaskCompleted(currentItem)
                 }
-            }
 
+                else
+                {
+                    val builder = AlertDialog.Builder(it.context)
+                    builder
+                        .setTitle("Do you want to un-do this task?")
+                        .setPositiveButton(
+                            "Yes",
+                            DialogInterface.OnClickListener { dialogInterface, i ->
+                                //currentItem.clearTask = "True"
+                                currentItem.TaskCompleted = false
+                                holder.itemView.isClickable = false
+                                holder.itemView.isFocusable = false
+                                holder.itemView.setBackgroundColor(Color.WHITE)
+                                holder.todoListMenu.setBackgroundColor(Color.WHITE)
+                                notifyItemChanged(position)
+                                dialogInterface.dismiss()
+                                listener.setTaskCompleted(currentItem)
+
+                            })
+                        .setNegativeButton("No", DialogInterface.OnClickListener { dialogInterface, i ->
+                            dialogInterface.dismiss()
+                        })
+                        .create()
+                        .show()
+                }
+            }
 
 
         holder.timerSwitch.setOnCheckedChangeListener { _, ischecked ->
             if (ischecked)
             {
                 listener.setAlarm(currentItem, holder.timerSwitch)
-
             }
 
            else {
@@ -83,7 +138,7 @@ class DailyTodoAdapter(private val listener: OnItemClickListener) : RecyclerView
             }
         }
 
-        holder.todoListEditbutton.setOnClickListener {
+        holder.todoListMenu.setOnClickListener {
             val context = it.context
             val popupMenu = PopupMenu(context, holder.itemView, Gravity.END)
             popupMenu.inflate(R.menu.todo_menu)
@@ -130,9 +185,10 @@ class DailyTodoAdapter(private val listener: OnItemClickListener) : RecyclerView
     inner class AddTodoListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         //  val wifiNameNumber: TextView = itemView.findViewById(R.id.wifiNameNumber)
         val todoName: TextView = itemView.findViewById(R.id.todoTask)
-        val todoListEditbutton: ImageButton = itemView.findViewById(R.id.todoMenu)
+        val todoListMenu: ImageButton = itemView.findViewById(R.id.todoMenu)
         val timerTime : TextView = itemView.findViewById(R.id.timerTime)
         val timerSwitch : Switch = itemView.findViewById(R.id.timerSwitch)
+        val isCheckedCheckBox: CheckBox = itemView.findViewById(R.id.check_box_completed)
     }
 
     interface OnItemClickListener {
@@ -141,13 +197,28 @@ class DailyTodoAdapter(private val listener: OnItemClickListener) : RecyclerView
         fun setTaskCompleted(userTask: UserTask)
         fun setAlarm(userTask: UserTask, timer:Switch)
         fun setAlarmOff(userTask: UserTask,timer: Switch)
+        fun onMultipleSelect()
+        fun oncheckboxClicked(userTask:UserTask)
     }
-
-
 
     override fun getItemCount(): Int {
         return data.size
     }
 
+    fun deleteSelectedItem(){
+        if(itemSelectedList.isNotEmpty()){
+            data.removeAll{item -> item.isChecked!!}
+            itemSelectedList.clear()
+            listener.onMultipleSelect()
+        }
+        notifyDataSetChanged()
+
+    }
+
+    private fun selectItem(currentItem: UserTask, position: Int) {
+        itemSelectedList.add(position)
+        currentItem.isChecked = true
+        showMenuDelete(true)
+    }
 
 }

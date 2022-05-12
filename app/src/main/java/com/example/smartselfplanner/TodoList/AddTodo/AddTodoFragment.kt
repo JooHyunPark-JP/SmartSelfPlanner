@@ -37,10 +37,14 @@ class AddTodoFragment : Fragment() {
 
         binding.confirmButton.setOnClickListener {
             val todoString = binding.AddTodoText.text.toString()
-            Log.d("Edit text testing", todoString)
-            viewModel.addTodo(todoString)
-            Toast.makeText(context,"Your Todo has been created!", Toast.LENGTH_SHORT).show()
-            activity?.onBackPressed()
+
+            if(todoString.equals(""))
+            {Toast.makeText(context,"Please write down your to do!", Toast.LENGTH_SHORT).show()}
+            else {
+                viewModel.addTodo(todoString)
+                Toast.makeText(context, "Your to-do has been created!", Toast.LENGTH_SHORT).show()
+                activity?.onBackPressed()
+            }
         }
         return binding.root
     }

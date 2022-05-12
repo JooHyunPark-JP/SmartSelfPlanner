@@ -62,14 +62,27 @@ class DailyAddTodoFragment : Fragment() {
         binding.confirmButton.setOnClickListener {
             val todoString = binding.AddTodoText.text.toString()
             if (binding.setTimerCheckBox.isChecked){
-                viewModel.addTodoWithTimer(todoString,hour,min,sec)
-                Toast.makeText(context,"Your Todo has been created! with timer!", Toast.LENGTH_SHORT).show()
-                activity?.onBackPressed()
+                if(todoString.equals(""))
+                {Toast.makeText(context,"Please write down your daily Task!", Toast.LENGTH_SHORT).show()}
+                else {
+                    viewModel.addTodoWithTimer(todoString, hour, min, sec)
+                    Toast.makeText(
+                        context,
+                        "Your Todo has been created! with timer!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    activity?.onBackPressed()
+                }
             }
             else{
-                viewModel.addTodo(todoString)
-                Toast.makeText(context,"Your Todo has been created!", Toast.LENGTH_SHORT).show()
-                activity?.onBackPressed()
+                if(todoString.equals(""))
+                {Toast.makeText(context,"Please write down your daily Task!", Toast.LENGTH_SHORT).show()}
+                else {
+                    viewModel.addTodo(todoString)
+                    Toast.makeText(context, "Your Todo has been created!", Toast.LENGTH_SHORT)
+                        .show()
+                    activity?.onBackPressed()
+                }
             }
           //  Toast.makeText(context,"Your Todo has been created!", Toast.LENGTH_SHORT).show()
 
