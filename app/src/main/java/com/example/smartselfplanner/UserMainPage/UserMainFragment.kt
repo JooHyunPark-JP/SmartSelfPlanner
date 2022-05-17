@@ -22,7 +22,6 @@ class UserMainFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
     }
 
     override fun onCreateView(
@@ -41,32 +40,34 @@ class UserMainFragment : Fragment() {
 
 
         binding.toDoTaskView.setOnClickListener {
-            Navigation.findNavController(it).navigate(R.id.action_userMainFragment_to_todoListFragment)
+            Navigation.findNavController(it)
+                .navigate(R.id.action_userMainFragment_to_todoListFragment)
         }
 
         binding.dailyTaskView.setOnClickListener {
-            Navigation.findNavController(it).navigate(R.id.action_userMainFragment_to_dailyTodoFragment)
+            Navigation.findNavController(it)
+                .navigate(R.id.action_userMainFragment_to_dailyTodoFragment)
         }
 
-        viewModel.todoCount.observe(viewLifecycleOwner, Observer {count->
-            binding.toDoCount.text = "You have "+ count.toString()+ " todo left!"
-        })
-
-        viewModel.dailyTodoCount.observe(viewLifecycleOwner, Observer {count->
-            binding.dailyTotalTodoText.text = "Total Daily tasks "+ count.toString()
-        })
-
-        viewModel.getDailyLeftTodoCount.observe(viewLifecycleOwner, Observer {count->
-            binding.dailyLeftTodoText.text = count.toString()+ " tasks left!"
+        viewModel.todoCount.observe(viewLifecycleOwner, Observer { count ->
+            binding.toDoCount.text = "Total To-do: " + count.toString()
         })
 
 
-        binding.dabaseDeleteButton.setOnClickListener {
+        viewModel.dailyTodoCount.observe(viewLifecycleOwner, Observer { count ->
+            binding.dailyTotalTodoText.text = "Total Daily tasks: " + count.toString()
+        })
+
+        viewModel.getDailyLeftTodoCount.observe(viewLifecycleOwner, Observer { count ->
+            binding.dailyLeftTodoText.text = count.toString() + " tasks left!"
+        })
+
+
+/*        binding.dabaseDeleteButton.setOnClickListener {
             viewModel.onClear()
-        }
+        }*/
         return binding.root
     }
-
 
 
 }

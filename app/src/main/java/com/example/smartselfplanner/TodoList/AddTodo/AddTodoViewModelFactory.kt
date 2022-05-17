@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.smartselfplanner.Database.UserTaskDatabaseDao
 
-class AddTodoViewModelFactory (
+class AddTodoViewModelFactory(
     private val dataSource: UserTaskDatabaseDao,
 ) :
     ViewModelProvider.Factory {

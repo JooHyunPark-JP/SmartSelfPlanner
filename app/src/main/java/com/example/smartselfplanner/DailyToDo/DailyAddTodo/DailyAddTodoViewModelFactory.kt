@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.smartselfplanner.DailyToDo.DailyTodoViewModel
 import com.example.smartselfplanner.Database.UserTaskDatabaseDao
 
-class DailyAddTodoViewModelFactory (private val dataSource: UserTaskDatabaseDao) :
+class DailyAddTodoViewModelFactory(private val dataSource: UserTaskDatabaseDao) :
     ViewModelProvider.Factory {
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {

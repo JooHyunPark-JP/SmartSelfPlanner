@@ -6,17 +6,17 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 @Database(entities = [UserTask::class], version = 1, exportSchema = false)
-abstract class UserTaskDatabase: RoomDatabase() {
+abstract class UserTaskDatabase : RoomDatabase() {
     //Connects the database to the DAO.
 
     abstract val UserTaskDatabaseDao: UserTaskDatabaseDao
 
-    companion object{
+    companion object {
         @Volatile
-        private var INSTANCE : UserTaskDatabase? = null
+        private var INSTANCE: UserTaskDatabase? = null
 
-        fun getInstance(context: Context): UserTaskDatabase{
-            synchronized(this){
+        fun getInstance(context: Context): UserTaskDatabase {
+            synchronized(this) {
                 var instance = INSTANCE
                 if (instance == null) {
                     instance = Room.databaseBuilder(

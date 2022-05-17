@@ -18,10 +18,10 @@ import com.example.smartselfplanner.databinding.FragmentDailyTodoBinding
 
 class DailyAddTodoFragment : Fragment() {
 
-    var sec : Int = 0
-    var min : Int = 0
-    var hour : Int = 0
-    lateinit var binding : FragmentDailyAddTodoBinding
+    var sec: Int = 0
+    var min: Int = 0
+    var hour: Int = 0
+    lateinit var binding: FragmentDailyAddTodoBinding
     private lateinit var viewModel: DailyAddTodoViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,10 +61,14 @@ class DailyAddTodoFragment : Fragment() {
 
         binding.confirmButton.setOnClickListener {
             val todoString = binding.AddTodoText.text.toString()
-            if (binding.setTimerCheckBox.isChecked){
-                if(todoString.equals(""))
-                {Toast.makeText(context,"Please write down your daily Task!", Toast.LENGTH_SHORT).show()}
-                else {
+            if (binding.setTimerCheckBox.isChecked) {
+                if (todoString.equals("")) {
+                    Toast.makeText(
+                        context,
+                        "Please write down your daily Task!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
                     viewModel.addTodoWithTimer(todoString, hour, min, sec)
                     Toast.makeText(
                         context,
@@ -73,18 +77,21 @@ class DailyAddTodoFragment : Fragment() {
                     ).show()
                     activity?.onBackPressed()
                 }
-            }
-            else{
-                if(todoString.equals(""))
-                {Toast.makeText(context,"Please write down your daily Task!", Toast.LENGTH_SHORT).show()}
-                else {
+            } else {
+                if (todoString.equals("")) {
+                    Toast.makeText(
+                        context,
+                        "Please write down your daily Task!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
                     viewModel.addTodo(todoString)
                     Toast.makeText(context, "Your Todo has been created!", Toast.LENGTH_SHORT)
                         .show()
                     activity?.onBackPressed()
                 }
             }
-          //  Toast.makeText(context,"Your Todo has been created!", Toast.LENGTH_SHORT).show()
+            //  Toast.makeText(context,"Your Todo has been created!", Toast.LENGTH_SHORT).show()
 
 
         }

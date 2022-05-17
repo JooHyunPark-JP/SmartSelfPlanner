@@ -36,12 +36,11 @@ class DailyEditTodoViewModel(
         update(editTask)
     }
 
-    private suspend fun update(task:UserTask){
-        withContext(Dispatchers.IO){
+    private suspend fun update(task: UserTask) {
+        withContext(Dispatchers.IO) {
             database.update(task)
         }
     }
-
 
 
 }

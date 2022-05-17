@@ -21,15 +21,6 @@
             app:layout_constraintBottom_toTopOf="@+id/AddDailyTaskButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/testingView" />
-
-        <TextView
-            android:id="@+id/testingView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hello world!"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
@@ -60,13 +51,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toDoRecyclerView" />
 
-        <Switch
-            android:id="@+id/on_off_switch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/AddDailyTaskButton"
-            app:layout_constraintTop_toBottomOf="@+id/toDoRecyclerView" />
 
         <TextView
             android:id="@+id/textView"
@@ -95,7 +79,7 @@
             android:layout_gravity="bottom|center"
             android:layout_marginTop="7dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/on_off_switch"
+            app:layout_constraintEnd_toStartOf="@+id/AddDailyTaskButton"
             app:layout_constraintStart_toEndOf="@+id/fab_stop"
             app:layout_constraintTop_toBottomOf="@+id/textView"
             app:srcCompat="@drawable/ic_timer" />

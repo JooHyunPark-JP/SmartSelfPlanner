@@ -32,15 +32,14 @@ class AddTodoFragment : Fragment() {
         val dataSource = UserTaskDatabase.getInstance(application).UserTaskDatabaseDao
         val viewModelFactory = AddTodoViewModelFactory(dataSource)
         viewModel = ViewModelProvider(this, viewModelFactory).get(AddTodoViewModel::class.java)
-        //Log.d("UUIDTEST", viewModel.uuid)
 
 
         binding.confirmButton.setOnClickListener {
             val todoString = binding.AddTodoText.text.toString()
 
-            if(todoString.equals(""))
-            {Toast.makeText(context,"Please write down your to do!", Toast.LENGTH_SHORT).show()}
-            else {
+            if (todoString.equals("")) {
+                Toast.makeText(context, "Please write down your to do!", Toast.LENGTH_SHORT).show()
+            } else {
                 viewModel.addTodo(todoString)
                 Toast.makeText(context, "Your to-do has been created!", Toast.LENGTH_SHORT).show()
                 activity?.onBackPressed()

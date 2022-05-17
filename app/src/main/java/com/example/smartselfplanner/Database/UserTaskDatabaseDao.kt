@@ -9,10 +9,10 @@ import androidx.room.Update
 @Dao
 interface UserTaskDatabaseDao {
     @Insert
-     fun insert(task: UserTask)
+    fun insert(task: UserTask)
 
     @Update
-     fun update(task:UserTask)
+    fun update(task: UserTask)
 
     @Query("SELECT * FROM user_task_table WHERE TaskId = :key ")
     suspend fun get(key: Long): UserTask
@@ -37,15 +37,13 @@ interface UserTaskDatabaseDao {
     fun getTodoCount(key: String): LiveData<Integer>
 
     @Query("SELECT COUNT(TaskId) FROM user_task_table where task_type = :key AND task_completed= :key2")
-    fun getDailyLeftTodoCount(key: String, key2:Boolean): LiveData<Integer>
+    fun getDailyLeftTodoCount(key: String, key2: Boolean): LiveData<Integer>
 
     @Query("DELETE FROM user_task_table where is_checked=:key")
     fun multipleDelete(key: Boolean)
 
     @Query("SELECT * FROM user_task_table where TaskId = :key and is_checked = :key2")
-    fun checkBoxChangeUpdate(key: Long, key2:Boolean): LiveData<UserTask>
-
-
+    fun checkBoxChangeUpdate(key: Long, key2: Boolean): LiveData<UserTask>
 
 
 /*    // Cant use offset without set a limit.

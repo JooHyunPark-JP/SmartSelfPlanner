@@ -42,16 +42,26 @@
                     android:paddingTop="20dp"
                     android:paddingBottom="20dp">
 
+                    <TextView
+                        android:id="@+id/todoText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/eagle_lake"
+                        android:text="To-do list"
+                        android:textStyle="bold"
+                        android:textAlignment="center" />
+
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_work" />
+                        android:layout_marginTop="15dp"
+                        android:src="@drawable/ic_note" />
+
 
                     <TextView
                         android:id="@+id/toDoCount"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
                         android:padding="10dp"
                         android:text="test"
                         android:textAlignment="center" />
@@ -78,25 +88,34 @@
                     android:paddingTop="20dp"
                     android:paddingBottom="20dp">
 
+                    <TextView
+                        android:id="@+id/dailyTaskText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/eagle_lake"
+                        android:text="Daily Tasks"
+                        android:textStyle="bold"
+                        android:textAlignment="center" />
+
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_education" />
+                        android:src="@drawable/ic_dailytask"
+                        android:layout_marginTop="15dp"/>
 
                     <TextView
                         android:id="@+id/dailyTotalTodoText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:padding="10dp"
                         android:text="test"
+
                         android:textAlignment="center" />
                     <TextView
                         android:id="@+id/dailyLeftTodoText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:padding="10dp"
+                        android:layout_marginTop="5dp"
                         android:text="test"
                         android:textAlignment="center" />
 
@@ -131,14 +150,15 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_work" />
+                        android:src="@drawable/ic_dailytask"
+                        android:layout_marginTop="15dp"/>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:padding="10dp"
-                        android:text="test"
+                        android:text="TBA"
                         android:textAlignment="center" />
 
                 </LinearLayout>
@@ -166,22 +186,23 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_education" />
+                        android:src="@drawable/ic_dailytask"
+                        android:layout_marginTop="15dp"/>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:padding="10dp"
-                        android:text="test"
+                        android:text="TBA"
                         android:textAlignment="center" />
 
                 </LinearLayout>
 
 
             </androidx.cardview.widget.CardView>
-        </LinearLayout>
-        <LinearLayout
+        <!--</LinearLayout>-->
+        <!--<LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -254,10 +275,10 @@
                 </LinearLayout>
 
 
-            </androidx.cardview.widget.CardView>
+            </androidx.cardview.widget.CardView>-->
         </LinearLayout>
 
-        <Button
+<!--        <Button
             android:id="@+id/dabaseDeleteButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -265,7 +286,7 @@
             app:layout_constraintEnd_toStartOf="@+id/wifiSwitch"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/wifiRecyclerView" />
+            app:layout_constraintTop_toBottomOf="@+id/wifiRecyclerView" />-->
     </LinearLayout>
 
 

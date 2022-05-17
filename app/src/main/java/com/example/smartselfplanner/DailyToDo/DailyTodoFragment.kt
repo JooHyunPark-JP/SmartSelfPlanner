@@ -31,9 +31,9 @@ import kotlinx.coroutines.flow.collect
 
 class DailyTodoFragment : Fragment(), DailyTodoAdapter.OnItemClickListener {
 
-    lateinit var binding : FragmentDailyTodoBinding
+    lateinit var binding: FragmentDailyTodoBinding
     private lateinit var viewModel: DailyTodoViewModel
-    private val adapter = DailyTodoAdapter(this) {show -> showDeleteMenu(show)}
+    private val adapter = DailyTodoAdapter(this) { show -> showDeleteMenu(show) }
 
     private var mainmenu: Menu? = null
 
@@ -50,7 +50,7 @@ class DailyTodoFragment : Fragment(), DailyTodoAdapter.OnItemClickListener {
         binding = FragmentDailyTodoBinding.inflate(inflater)
         val application = requireNotNull(this.activity).application
         val datasource = UserTaskDatabase.getInstance(application).UserTaskDatabaseDao
-        val viewModelFactory = DailyTodoViewModelFactory(datasource,application)
+        val viewModelFactory = DailyTodoViewModelFactory(datasource, application)
         viewModel = ViewModelProvider(this, viewModelFactory).get(DailyTodoViewModel::class.java)
 
 
@@ -60,7 +60,8 @@ class DailyTodoFragment : Fragment(), DailyTodoAdapter.OnItemClickListener {
         binding.toDoRecyclerView.setHasFixedSize(true)
 
         binding.AddDailyTaskButton.setOnClickListener {
-            this.findNavController().navigate(DailyTodoFragmentDirections.actionDailyTodoFragmentToDailyAddTodoFragment())
+            this.findNavController()
+                .navigate(DailyTodoFragmentDirections.actionDailyTodoFragmentToDailyAddTodoFragment())
         }
 
         viewModel.dailyTodoList.observe(viewLifecycleOwner, Observer {
@@ -93,10 +94,13 @@ class DailyTodoFragment : Fragment(), DailyTodoAdapter.OnItemClickListener {
 
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.tasksEvent.collect {event->
-                when(event){
+            viewModel.tasksEvent.collect { event ->
+                when (event) {
                     is DailyTodoViewModel.TasksEvent.NavigateToEditTodoScreen -> {
-                        val action = DailyTodoFragmentDirections.actionDailyTodoFragmentToDailyEditTodoFragment(event.userTask)
+                        val action =
+                            DailyTodoFragmentDirections.actionDailyTodoFragmentToDailyEditTodoFragment(
+                                event.userTask
+                            )
                         Log.d("actiontesting", event.userTask.Task)
                         findNavController().navigate(action)
                     }
@@ -125,18 +129,16 @@ class DailyTodoFragment : Fragment(), DailyTodoAdapter.OnItemClickListener {
         viewModel.onTaskSelected(userTask)
     }
 
-    override fun setAlarm(userTask: UserTask, timer:Switch) {
+    override fun setAlarm(userTask: UserTask, timer: Switch) {
 /*        viewModel.isAlarmOn.observe(viewLifecycleOwner, Observer { alarmOn ->
             timer.isChecked = alarmOn*/
-            viewModel.cancelNotification()
-            viewModel.setAlarm(true,userTask)
-            Toast.makeText(context, "Switch ON!", Toast.LENGTH_SHORT).show()
-
-
+        viewModel.cancelNotification()
+        viewModel.setAlarm(true, userTask)
+        Toast.makeText(context, "Switch ON!", Toast.LENGTH_SHORT).show()
     }
 
-    override fun setAlarmOff(userTask: UserTask,timer:Switch) {
-        viewModel.setAlarm(false,userTask)
+    override fun setAlarmOff(userTask: UserTask, timer: Switch) {
+        viewModel.setAlarm(false, userTask)
     }
 
     //Create Channel for notification for dailytasks.
@@ -156,7 +158,8 @@ class DailyTodoFragment : Fragment(), DailyTodoAdapter.OnItemClickListener {
             notificationChannel.enableLights(true)
             notificationChannel.lightColor = Color.RED
             notificationChannel.enableVibration(true)
-            notificationChannel.description = getString(R.string.daily_task_notification_channel_description)
+            notificationChannel.description =
+                getString(R.string.daily_task_notification_channel_description)
 
             val notificationManager = requireActivity().getSystemService(
                 NotificationManager::class.java
@@ -164,10 +167,9 @@ class DailyTodoFragment : Fragment(), DailyTodoAdapter.OnItemClickListener {
             notificationManager.createNotificationChannel(notificationChannel)
 
         }
-        // TODO: Step 1.6 END create a channel
     }
 
-    fun showDeleteMenu(show: Boolean){
+    fun showDeleteMenu(show: Boolean) {
         mainmenu?.findItem(R.id.menu_delete)?.isVisible = show
     }
 
@@ -179,23 +181,24 @@ class DailyTodoFragment : Fragment(), DailyTodoAdapter.OnItemClickListener {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId)
-        {
-            R.id.menu_delete -> {delete()}
+        when (item.itemId) {
+            R.id.menu_delete -> {
+                delete()
+            }
         }
         return super.onOptionsItemSelected(item)
     }
 
 
-    private fun delete(){
+    private fun delete() {
         val alertDialog = AlertDialog.Builder(this.context)
         alertDialog.setTitle("Delete")
         alertDialog.setMessage("Do you really want to delete these?")
-        alertDialog.setPositiveButton("Delete"){_,_ ->
+        alertDialog.setPositiveButton("Delete") { _, _ ->
             adapter.deleteSelectedItem()
             showDeleteMenu(false)
         }
-        alertDialog.setNegativeButton("Cancel"){_,_ ->
+        alertDialog.setNegativeButton("Cancel") { _, _ ->
 
         }
         alertDialog.show()
@@ -208,7 +211,6 @@ class DailyTodoFragment : Fragment(), DailyTodoAdapter.OnItemClickListener {
     override fun oncheckboxClicked(userTask: UserTask) {
         viewModel.onCheckBoxChanged(userTask)
     }
-
 
 
 }

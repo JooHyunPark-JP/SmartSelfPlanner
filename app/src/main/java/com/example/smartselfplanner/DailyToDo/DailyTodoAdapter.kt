@@ -16,7 +16,10 @@ import com.example.smartselfplanner.TodoList.TodoListAdapter
 import org.w3c.dom.Text
 
 
-class DailyTodoAdapter(private val listener: OnItemClickListener,  private val showMenuDelete: (Boolean) -> Unit) : RecyclerView.Adapter<DailyTodoAdapter.AddTodoListViewHolder>() {
+class DailyTodoAdapter(
+    private val listener: OnItemClickListener,
+    private val showMenuDelete: (Boolean) -> Unit
+) : RecyclerView.Adapter<DailyTodoAdapter.AddTodoListViewHolder>() {
 
     var data = mutableListOf<UserTask>()
         set(value) {
@@ -40,12 +43,11 @@ class DailyTodoAdapter(private val listener: OnItemClickListener,  private val s
         holder.timerSwitch.isVisible = false
 
 
-        if (currentItem.dailyTimerHour.toString() != "null"){
+        if (currentItem.dailyTimerHour.toString() != "null") {
             holder.timerTime.text =
                 currentItem.dailyTimerHour.toString() + "h" + currentItem.dailyTimerMin.toString() + "m" + currentItem.dailyTimerSec.toString() + "s"
             holder.timerSwitch.isVisible = true
-        }
-        else{
+        } else {
             holder.timerTime.text = ""
         }
 
@@ -53,16 +55,13 @@ class DailyTodoAdapter(private val listener: OnItemClickListener,  private val s
             holder.isCheckedCheckBox.isChecked = false
         }
 
-
-
-        if (currentItem.TaskCompleted == true){
+        if (currentItem.TaskCompleted == true) {
             holder.itemView.setBackgroundColor(Color.GRAY)
             holder.itemView.isClickable = false
             holder.itemView.isFocusable = false
             holder.todoListMenu.setBackgroundColor(Color.GRAY)
             holder.todoListMenu.setImageResource(R.drawable.ic_check)
-        }
-        else {
+        } else {
             holder.itemView.setBackgroundColor(Color.WHITE)
             holder.itemView.isClickable = true
             holder.itemView.isFocusable = true
@@ -71,12 +70,10 @@ class DailyTodoAdapter(private val listener: OnItemClickListener,  private val s
         }
 
         holder.isCheckedCheckBox.setOnCheckedChangeListener { _, ischeck ->
-            if (ischeck)
-            {
-                selectItem(currentItem,position)
+            if (ischeck) {
+                selectItem(currentItem, position)
                 listener.oncheckboxClicked(currentItem)
-            }
-            else {
+            } else {
                 if (itemSelectedList.contains(position)) {
                     currentItem.isChecked = false
                     listener.oncheckboxClicked(currentItem)
@@ -88,53 +85,46 @@ class DailyTodoAdapter(private val listener: OnItemClickListener,  private val s
             }
         }
 
-            holder.itemView.setOnClickListener {
-                if (currentItem.TaskCompleted == false) {
-                    currentItem.TaskCompleted = true
-                    Toast.makeText(
-                        it.context,
-                        "PrimaryKey: ${currentItem.TaskId}, TaskCompleted?: ${currentItem.TaskCompleted} ",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    listener.setTaskCompleted(currentItem)
-                }
-
-                else
-                {
-                    val builder = AlertDialog.Builder(it.context)
-                    builder
-                        .setTitle("Do you want to un-do this task?")
-                        .setPositiveButton(
-                            "Yes",
-                            DialogInterface.OnClickListener { dialogInterface, i ->
-                                //currentItem.clearTask = "True"
-                                currentItem.TaskCompleted = false
-                                holder.itemView.isClickable = false
-                                holder.itemView.isFocusable = false
-                                holder.itemView.setBackgroundColor(Color.WHITE)
-                                holder.todoListMenu.setBackgroundColor(Color.WHITE)
-                                notifyItemChanged(position)
-                                dialogInterface.dismiss()
-                                listener.setTaskCompleted(currentItem)
-
-                            })
-                        .setNegativeButton("No", DialogInterface.OnClickListener { dialogInterface, i ->
+        holder.itemView.setOnClickListener {
+            if (currentItem.TaskCompleted == false) {
+                currentItem.TaskCompleted = true
+                Toast.makeText(
+                    it.context,
+                    "PrimaryKey: ${currentItem.TaskId}, TaskCompleted?: ${currentItem.TaskCompleted} ",
+                    Toast.LENGTH_SHORT
+                ).show()
+                listener.setTaskCompleted(currentItem)
+            } else {
+                val builder = AlertDialog.Builder(it.context)
+                builder
+                    .setTitle("Do you want to un-do this task?")
+                    .setPositiveButton(
+                        "Yes",
+                        DialogInterface.OnClickListener { dialogInterface, i ->
+                            //currentItem.clearTask = "True"
+                            currentItem.TaskCompleted = false
+                            holder.itemView.isClickable = false
+                            holder.itemView.isFocusable = false
+                            holder.itemView.setBackgroundColor(Color.WHITE)
+                            holder.todoListMenu.setBackgroundColor(Color.WHITE)
+                            notifyItemChanged(position)
                             dialogInterface.dismiss()
-                        })
-                        .create()
-                        .show()
-                }
-            }
+                            listener.setTaskCompleted(currentItem)
 
+                        })
+                    .setNegativeButton("No", DialogInterface.OnClickListener { dialogInterface, i ->
+                        dialogInterface.dismiss()
+                    })
+                    .create()
+                    .show()
+            }
+        }
 
         holder.timerSwitch.setOnCheckedChangeListener { _, ischecked ->
-            if (ischecked)
-            {
+            if (ischecked) {
                 listener.setAlarm(currentItem, holder.timerSwitch)
-            }
-
-           else {
-                listener.setAlarmOff(currentItem,holder.timerSwitch)
+            } else {
+                listener.setAlarmOff(currentItem, holder.timerSwitch)
             }
         }
 
@@ -149,26 +139,26 @@ class DailyTodoAdapter(private val listener: OnItemClickListener,  private val s
                         true
                     }
                     R.id.deleteText -> {
-                    AlertDialog.Builder(holder.itemView.context)
-                        .setTitle("Delete")
-                        .setIcon(R.drawable.ic_warning)
-                        .setMessage("Are you sure want to delete?")
-                        .setPositiveButton("Yes") { dialog, _ ->
-                            listener.onDeleteClick(currentItem)
-                            Toast.makeText(
-                                context,
-                                "Deleted!",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                            dialog.dismiss()
-                        }
-                        .setNegativeButton("No") { dialog, _ ->
-                            dialog.dismiss()
-                        }
-                        .create()
-                        .show()
-                    true
-                }
+                        AlertDialog.Builder(holder.itemView.context)
+                            .setTitle("Delete")
+                            .setIcon(R.drawable.ic_warning)
+                            .setMessage("Are you sure want to delete?")
+                            .setPositiveButton("Yes") { dialog, _ ->
+                                listener.onDeleteClick(currentItem)
+                                Toast.makeText(
+                                    context,
+                                    "Deleted!",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                dialog.dismiss()
+                            }
+                            .setNegativeButton("No") { dialog, _ ->
+                                dialog.dismiss()
+                            }
+                            .create()
+                            .show()
+                        true
+                    }
                     else -> true
                 }
             }
@@ -186,8 +176,8 @@ class DailyTodoAdapter(private val listener: OnItemClickListener,  private val s
         //  val wifiNameNumber: TextView = itemView.findViewById(R.id.wifiNameNumber)
         val todoName: TextView = itemView.findViewById(R.id.todoTask)
         val todoListMenu: ImageButton = itemView.findViewById(R.id.todoMenu)
-        val timerTime : TextView = itemView.findViewById(R.id.timerTime)
-        val timerSwitch : Switch = itemView.findViewById(R.id.timerSwitch)
+        val timerTime: TextView = itemView.findViewById(R.id.timerTime)
+        val timerSwitch: Switch = itemView.findViewById(R.id.timerSwitch)
         val isCheckedCheckBox: CheckBox = itemView.findViewById(R.id.check_box_completed)
     }
 
@@ -195,19 +185,19 @@ class DailyTodoAdapter(private val listener: OnItemClickListener,  private val s
         fun onEditClick(userTask: UserTask)
         fun onDeleteClick(userTask: UserTask)
         fun setTaskCompleted(userTask: UserTask)
-        fun setAlarm(userTask: UserTask, timer:Switch)
-        fun setAlarmOff(userTask: UserTask,timer: Switch)
+        fun setAlarm(userTask: UserTask, timer: Switch)
+        fun setAlarmOff(userTask: UserTask, timer: Switch)
         fun onMultipleSelect()
-        fun oncheckboxClicked(userTask:UserTask)
+        fun oncheckboxClicked(userTask: UserTask)
     }
 
     override fun getItemCount(): Int {
         return data.size
     }
 
-    fun deleteSelectedItem(){
-        if(itemSelectedList.isNotEmpty()){
-            data.removeAll{item -> item.isChecked!!}
+    fun deleteSelectedItem() {
+        if (itemSelectedList.isNotEmpty()) {
+            data.removeAll { item -> item.isChecked!! }
             itemSelectedList.clear()
             listener.onMultipleSelect()
         }

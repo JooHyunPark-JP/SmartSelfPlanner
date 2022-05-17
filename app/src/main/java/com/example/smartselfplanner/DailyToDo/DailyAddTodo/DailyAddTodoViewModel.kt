@@ -9,24 +9,30 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class DailyAddTodoViewModel (
+class DailyAddTodoViewModel(
     val database: UserTaskDatabaseDao,
 ) : AndroidViewModel(Application()) {
 
 
-    fun addTodo(dailyToDo: String)  {
+    fun addTodo(dailyToDo: String) {
         viewModelScope.launch {
-            val newTodo = UserTask(TaskType = "UserDailyToDo", Task = dailyToDo, TaskCompleted = false )
+            val newTodo =
+                UserTask(TaskType = "UserDailyToDo", Task = dailyToDo, TaskCompleted = false)
             insert(newTodo)
-            // recentTodo.value = getRecentWifiFromDatabase()
         }
     }
 
-    fun addTodoWithTimer(dailyToDo: String, hour: Int, min: Int, sec: Int)  {
+    fun addTodoWithTimer(dailyToDo: String, hour: Int, min: Int, sec: Int) {
         viewModelScope.launch {
-            val newTodo = UserTask(TaskType = "UserDailyToDo", Task = dailyToDo, TaskCompleted = false, dailyTimerHour = hour, dailyTimerMin = min, dailyTimerSec = sec )
+            val newTodo = UserTask(
+                TaskType = "UserDailyToDo",
+                Task = dailyToDo,
+                TaskCompleted = false,
+                dailyTimerHour = hour,
+                dailyTimerMin = min,
+                dailyTimerSec = sec
+            )
             insert(newTodo)
-            // recentTodo.value = getRecentWifiFromDatabase()
         }
     }
 

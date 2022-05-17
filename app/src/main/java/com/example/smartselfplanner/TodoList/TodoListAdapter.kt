@@ -10,20 +10,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.smartselfplanner.Database.UserTask
 import com.example.smartselfplanner.R
 
-class TodoListAdapter(private val listener: OnItemClickListener, private val showMenuDelete: (Boolean) -> Unit) : RecyclerView.Adapter<TodoListAdapter.todoListViewHolder>() {
-
-/*    var data = listOf<UserTask>()
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }*/
+class TodoListAdapter(
+    private val listener: OnItemClickListener,
+    private val showMenuDelete: (Boolean) -> Unit
+) : RecyclerView.Adapter<TodoListAdapter.todoListViewHolder>() {
 
     var data = mutableListOf<UserTask>()
         set(value) {
             field = value
             notifyDataSetChanged()
         }
-
 
     private val itemSelectedList = mutableListOf<Int>()
 
@@ -45,16 +41,18 @@ class TodoListAdapter(private val listener: OnItemClickListener, private val sho
             holder.isCheckedCheckBox.isChecked = false
         }
         holder.itemView.setOnClickListener {
-            Toast.makeText(it.context, "PrimaryKey: ${currentItem.TaskId}, ischecked?: ${currentItem.isChecked} ", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                it.context,
+                "PrimaryKey: ${currentItem.TaskId}, ischecked?: ${currentItem.isChecked} ",
+                Toast.LENGTH_SHORT
+            ).show()
         }
 
         holder.isCheckedCheckBox.setOnCheckedChangeListener { _, ischeck ->
-            if (ischeck)
-            {
-                selectItem(currentItem,position)
+            if (ischeck) {
+                selectItem(currentItem, position)
                 listener.oncheckboxClicked(currentItem)
-            }
-            else {
+            } else {
                 if (itemSelectedList.contains(position)) {
                     currentItem.isChecked = false
                     listener.oncheckboxClicked(currentItem)
@@ -148,7 +146,7 @@ class TodoListAdapter(private val listener: OnItemClickListener, private val sho
         fun onEditClick(userTask: UserTask)
         fun onDeleteClick(userTask: UserTask)
         fun onMultipleSelect()
-        fun oncheckboxClicked(userTask:UserTask)
+        fun oncheckboxClicked(userTask: UserTask)
 
     }
 
@@ -156,9 +154,9 @@ class TodoListAdapter(private val listener: OnItemClickListener, private val sho
         return data.size
     }
 
-    fun deleteSelectedItem(){
-        if(itemSelectedList.isNotEmpty()){
-            data.removeAll{item -> item.isChecked!!}
+    fun deleteSelectedItem() {
+        if (itemSelectedList.isNotEmpty()) {
+            data.removeAll { item -> item.isChecked!! }
             itemSelectedList.clear()
             listener.onMultipleSelect()
         }

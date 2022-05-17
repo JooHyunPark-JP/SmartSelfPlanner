@@ -23,7 +23,7 @@ class TodoListFragment : Fragment(), TodoListAdapter.OnItemClickListener {
     lateinit var binding: FragmentTodoListBinding
     private lateinit var viewModel: TodoListViewModel
 
-    private val adapter = TodoListAdapter(this){show -> showDeleteMenu(show)}
+    private val adapter = TodoListAdapter(this) { show -> showDeleteMenu(show) }
     private var mainmenu: Menu? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,7 +55,8 @@ class TodoListFragment : Fragment(), TodoListAdapter.OnItemClickListener {
         })
 
         binding.AddTodoButton.setOnClickListener {
-            this.findNavController().navigate(TodoListFragmentDirections.actionTodoListFragmentToAddTodoFragment())
+            this.findNavController()
+                .navigate(TodoListFragmentDirections.actionTodoListFragmentToAddTodoFragment())
         }
 
         binding.deleteButton.setOnClickListener {
@@ -82,7 +83,7 @@ class TodoListFragment : Fragment(), TodoListAdapter.OnItemClickListener {
         viewModel.onCheckBoxChanged(userTask)
     }
 
-    fun showDeleteMenu(show: Boolean){
+    fun showDeleteMenu(show: Boolean) {
         mainmenu?.findItem(R.id.menu_delete)?.isVisible = show
     }
 
@@ -94,23 +95,24 @@ class TodoListFragment : Fragment(), TodoListAdapter.OnItemClickListener {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-       when (item.itemId)
-       {
-           R.id.menu_delete -> {delete()}
-       }
+        when (item.itemId) {
+            R.id.menu_delete -> {
+                delete()
+            }
+        }
         return super.onOptionsItemSelected(item)
     }
 
 
-    private fun delete(){
+    private fun delete() {
         val alertDialog = AlertDialog.Builder(this.context)
         alertDialog.setTitle("Delete")
         alertDialog.setMessage("Do you really want to delete these?")
-        alertDialog.setPositiveButton("Delete"){_,_ ->
+        alertDialog.setPositiveButton("Delete") { _, _ ->
             adapter.deleteSelectedItem()
             showDeleteMenu(false)
         }
-        alertDialog.setNegativeButton("Cancel"){_,_ ->
+        alertDialog.setNegativeButton("Cancel") { _, _ ->
 
         }
         alertDialog.show()

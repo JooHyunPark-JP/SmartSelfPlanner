@@ -10,7 +10,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class TodoListViewModel (
+class TodoListViewModel(
     val database: UserTaskDatabaseDao,
     application: Application
 ) : AndroidViewModel(Application()) {
@@ -23,8 +23,8 @@ class TodoListViewModel (
         update(userTask)
     }
 
-    private suspend fun update(task:UserTask){
-        withContext(Dispatchers.IO){
+    private suspend fun update(task: UserTask) {
+        withContext(Dispatchers.IO) {
             database.update(task)
         }
     }
@@ -33,8 +33,8 @@ class TodoListViewModel (
         deleteRow(userTask)
     }
 
-    private suspend fun deleteRow(task:UserTask){
-        withContext(Dispatchers.IO){
+    private suspend fun deleteRow(task: UserTask) {
+        withContext(Dispatchers.IO) {
             database.deleteRow(task.TaskId)
         }
     }
@@ -43,8 +43,8 @@ class TodoListViewModel (
         deleteMultipleRow()
     }
 
-    private suspend fun deleteMultipleRow(){
-        withContext(Dispatchers.IO){
+    private suspend fun deleteMultipleRow() {
+        withContext(Dispatchers.IO) {
             database.multipleDelete(true)
         }
     }
@@ -53,8 +53,8 @@ class TodoListViewModel (
         changeCheckBoxState(userTask)
     }
 
-    private suspend fun changeCheckBoxState(task: UserTask){
-        withContext(Dispatchers.IO){
+    private suspend fun changeCheckBoxState(task: UserTask) {
+        withContext(Dispatchers.IO) {
             database.update(task)
         }
     }

@@ -27,10 +27,10 @@ data class UserTask(
     @ColumnInfo(name = "timer_Hour")
     var dailyTimerHour: Int? = null,
 
-@ColumnInfo(name = "timer_Min")
+    @ColumnInfo(name = "timer_Min")
     var dailyTimerMin: Int? = null,
 
-@ColumnInfo(name = "timer_Sec")
+    @ColumnInfo(name = "timer_Sec")
     var dailyTimerSec: Int? = null
 
 ) : Parcelable

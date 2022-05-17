@@ -42,13 +42,13 @@ class DailyTodoViewModel(
     private val REQUEST_CODE = 0
     private val TRIGGER_TIME = "TRIGGER_AT"
 
-    var hour : Int = 0
-    var min : Int = 0
-    var sec : Int = 0
+    var hour: Int = 0
+    var min: Int = 0
+    var sec: Int = 0
 
     private val hourTimer: Long = 3600000L
-    private val minute: Long = 60_000L
-    private val second: Long = 1_000L
+    private val minuteTimer: Long = 60_000L
+    private val secondTimer: Long = 1_000L
 
     private val notifyPendingIntent: PendingIntent
 
@@ -56,8 +56,6 @@ class DailyTodoViewModel(
     private var prefs =
         app.getSharedPreferences("com.example.smartselfplanner", Context.MODE_PRIVATE)
     private val notifyIntent = Intent(app, AlarmReceiver::class.java)
-
-
 
     private val _elapsedTime = MutableLiveData<Long>()
     val elapsedTime: LiveData<Long>
@@ -72,7 +70,7 @@ class DailyTodoViewModel(
 
     private lateinit var timer: CountDownTimer
 
-    init{
+    init {
         _alarmOn.value = PendingIntent.getBroadcast(
             getApplication(),
             REQUEST_CODE,
@@ -80,7 +78,7 @@ class DailyTodoViewModel(
             PendingIntent.FLAG_NO_CREATE
         ) != null
 
-        Log.d("alarmon",  _alarmOn.value.toString())
+        Log.d("alarmon", _alarmOn.value.toString())
 
         notifyPendingIntent = PendingIntent.getBroadcast(
             getApplication(),
@@ -88,7 +86,7 @@ class DailyTodoViewModel(
             notifyIntent,
             PendingIntent.FLAG_UPDATE_CURRENT
         )
-        Log.d("nitifyintent",  notifyPendingIntent.toString())
+        Log.d("nitifyintent", notifyPendingIntent.toString())
 
 
         //If alarm is not null, resume the timer back for this alarm
@@ -101,13 +99,14 @@ class DailyTodoViewModel(
     private fun createTimer() {
         viewModelScope.launch {
             val triggerTime = loadTime()
-            timer = object : CountDownTimer(triggerTime, second) {
+            timer = object : CountDownTimer(triggerTime, secondTimer) {
                 override fun onTick(millisUntilFinished: Long) {
                     _elapsedTime.value = triggerTime - SystemClock.elapsedRealtime()
                     if (_elapsedTime.value!! <= 0) {
                         resetTimer()
                     }
                 }
+
                 override fun onFinish() {
                     resetTimer()
                 }
@@ -143,11 +142,10 @@ class DailyTodoViewModel(
     }
 
 
-
     /**
      * Creates a new alarm, notification and timer
      */
-    private fun startTimer(hour:Int, min:Int, sec:Int) {
+    private fun startTimer(hour: Int, min: Int, sec: Int) {
         _alarmOn.value?.let {
             if (!it) {
                 _alarmOn.value = true
@@ -156,7 +154,8 @@ class DailyTodoViewModel(
                     else ->timerLengthOptions[timerLengthSelection] * minute
                 }*/
 
-                val triggerTime = SystemClock.elapsedRealtime() + (hour * hourTimer) + (min * minute) + (sec * second)
+                val triggerTime =
+                    SystemClock.elapsedRealtime() + (hour * hourTimer) + (min * minuteTimer) + (sec * secondTimer)
 
                 // call cancel notification everytime timer is start.
                 val notificationManager =
@@ -186,30 +185,29 @@ class DailyTodoViewModel(
             prefs.edit().putLong(TRIGGER_TIME, triggerTime).apply()
         }
 
-     fun cancelNotification() {
+    fun cancelNotification() {
         resetTimer()
         alarmManager.cancel(notifyPendingIntent)
     }
-
 
 
     fun onDeleteSelected(userTask: UserTask) = viewModelScope.launch {
         deleteRow(userTask)
     }
 
-    private suspend fun deleteRow(task: UserTask){
-        withContext(Dispatchers.IO){
+    private suspend fun deleteRow(task: UserTask) {
+        withContext(Dispatchers.IO) {
             database.deleteRow(task.TaskId)
         }
     }
 
     fun onSetTaskCompleted(userTask: UserTask) = viewModelScope.launch {
         TaskCompleted(userTask)
-      //  Log.d("userTask", "onSetTaskCompleted: " + userTask.TaskId+ userTask.TaskCompleted)
+        //  Log.d("userTask", "onSetTaskCompleted: " + userTask.TaskId+ userTask.TaskCompleted)
     }
 
     private suspend fun TaskCompleted(task: UserTask) {
-         withContext(Dispatchers.IO){
+        withContext(Dispatchers.IO) {
             database.update(task)
         }
     }
@@ -226,8 +224,8 @@ class DailyTodoViewModel(
         deleteMultipleRow()
     }
 
-    private suspend fun deleteMultipleRow(){
-        withContext(Dispatchers.IO){
+    private suspend fun deleteMultipleRow() {
+        withContext(Dispatchers.IO) {
             database.multipleDelete(true)
         }
     }
@@ -236,8 +234,8 @@ class DailyTodoViewModel(
         changeCheckBoxState(userTask)
     }
 
-    private suspend fun changeCheckBoxState(task: UserTask){
-        withContext(Dispatchers.IO){
+    private suspend fun changeCheckBoxState(task: UserTask) {
+        withContext(Dispatchers.IO) {
             database.update(task)
         }
     }

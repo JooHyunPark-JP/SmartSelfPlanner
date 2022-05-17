@@ -37,7 +37,7 @@ fun NotificationManager.sendNotification(messageBody: String, applicationContext
         applicationContext.getString(R.string.dailyTask_channel_id)
     )
         // set title, text and icon to builder
-        .setSmallIcon(R.drawable.ic_education)
+        .setSmallIcon(R.drawable.ic_check)
         .setContentTitle(applicationContext
             .getString(R.string.notification_title))
         .setContentText(messageBody)
@@ -47,16 +47,10 @@ fun NotificationManager.sendNotification(messageBody: String, applicationContext
             //When user click the notification, it will be gone
         .setAutoCancel(true)
 
-
-    // TODO: Step 1.4 call notify to send the notification
     // Deliver the notification
     notify(NOTIFICATION_ID, builder.build())
 }
 
-/**
- * Cancels all notifications.
- *
- */
 fun NotificationManager.cancelNotifications() {
     cancelAll()
 }

@@ -14,7 +14,6 @@ class AlarmReceiver: BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
        // Toast.makeText(context, "Your Task is done!", Toast.LENGTH_SHORT).show()
 
-        // TODO: Step 1.9 add call to sendNotification
         val notificationManager = ContextCompat.getSystemService(
             context,
             NotificationManager::class.java

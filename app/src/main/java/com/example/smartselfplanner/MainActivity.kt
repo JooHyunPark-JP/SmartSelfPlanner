@@ -21,6 +21,7 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.myNavHostFragment) as NavHostFragment
         navController = navHostFragment.findNavController()
 
+        //Set up actionbar title from "Label" in Navigation page.
         setupActionBarWithNavController(navController)
     }
 

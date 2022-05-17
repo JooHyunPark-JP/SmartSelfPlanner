@@ -21,11 +21,11 @@ import com.example.smartselfplanner.databinding.FragmentUserMainBinding
 
 class DailyEditTodoFragment : Fragment() {
 
-    var sec : Int = 0
-    var min : Int = 0
-    var hour : Int = 0
+    var sec: Int = 0
+    var min: Int = 0
+    var hour: Int = 0
 
-    lateinit var binding : FragmentDailyEditTodoBinding
+    lateinit var binding: FragmentDailyEditTodoBinding
     private lateinit var viewModel: DailyEditTodoViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,11 +38,9 @@ class DailyEditTodoFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentDailyEditTodoBinding.inflate(layoutInflater)
-
         binding.numPickerHour.maxValue = 23
         binding.numPickerMin.maxValue = 59
         binding.numPickerSec.maxValue = 59
-
 
 
         binding.numPickerHour.setOnValueChangedListener { numberPicker, i, i2 ->
@@ -63,7 +61,7 @@ class DailyEditTodoFragment : Fragment() {
         val application = requireNotNull(this.activity).application
         val arguments = DailyEditTodoFragmentArgs.fromBundle(requireArguments())
         val dataSource = UserTaskDatabase.getInstance(application).UserTaskDatabaseDao
-        val viewModelFactory = DailyEditTodoViewModelFactory(arguments.dailyUserTask,dataSource)
+        val viewModelFactory = DailyEditTodoViewModelFactory(arguments.dailyUserTask, dataSource)
         viewModel = ViewModelProvider(this, viewModelFactory).get(DailyEditTodoViewModel::class.java)
 
         val tasks = viewModel.userDailyTask
@@ -72,10 +70,14 @@ class DailyEditTodoFragment : Fragment() {
 
         binding.confirmButton.setOnClickListener {
             val todoString = binding.editTodoText.text.toString()
-            if (binding.setTimerCheckBox.isChecked){
-                if(todoString.equals(""))
-                {Toast.makeText(context,"Please write down your daily Task!", Toast.LENGTH_SHORT).show()}
-                else {
+            if (binding.setTimerCheckBox.isChecked) {
+                if (todoString.equals("")) {
+                    Toast.makeText(
+                        context,
+                        "Please write down your daily Task!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
                     viewModel.editDailyTask(todoString, hour, min, sec)
                     Toast.makeText(
                         context,
@@ -84,11 +86,14 @@ class DailyEditTodoFragment : Fragment() {
                     ).show()
                     activity?.onBackPressed()
                 }
-            }
-            else{
-                if(todoString.equals(""))
-                {Toast.makeText(context,"Please write down your daily Task!", Toast.LENGTH_SHORT).show()}
-                else {
+            } else {
+                if (todoString.equals("")) {
+                    Toast.makeText(
+                        context,
+                        "Please write down your daily Task!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
                     viewModel.editDailyTaskWithoutTimer(todoString)
                     Toast.makeText(context, "Your daily task has been updated!", Toast.LENGTH_SHORT)
                         .show()
@@ -97,10 +102,8 @@ class DailyEditTodoFragment : Fragment() {
             }
 
         }
-
         return binding.root
     }
-
 
 
 }
