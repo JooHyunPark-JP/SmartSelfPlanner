@@ -19,11 +19,17 @@ The main page is where the user can monitoring the overall condition (eg: How ma
 A user where make To-do lists. Multiple select is available.
 
 3. Daily Tasks:
-Where users make tasks that should do on a daily basis. Users can set a timer (which is optional) for each task (For example: Read a book for 30 mins.) When the timer is done, the app will alert the phone and send a notification.  
+Where users make tasks that should do on a daily basis. Users can set a timer (which is optional) for each task (For example: Read a book for 30 mins.) 
 
 <img src="/images/DailyTaskMain.jpg"/>
 
+When the timer is finished, the app will alert the phone and send a notification (Timer and notification are working in the background therefore even if the app is closed, it will still work) 
+
+<img src="/images/notification.jpg"/>
+
 All the planners can be modified by users. (Add, delete and edit)
+
+
 
 ## Future work
 
