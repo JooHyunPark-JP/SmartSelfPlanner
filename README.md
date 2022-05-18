@@ -7,20 +7,30 @@ Library and tech being used:
 MVVM(Model-View-ViewModel), Coroutine, Room database, SQLite, Notification, Broadcast Service, Pending Intent, Data binding, Recyclerview, LiveData, App Navigation(Fragments), Menu manager, Timer… and more. 
 
 ## About the app.
-So far, a simple To-do page and daily task page are done.
+So far, a simple To-do page and daily task page are completed.
 
 ## Project Overview.
 
 1. Main Page:
-A main page where user can monitoring the overall condition (eg: How many tasks are done) from each planner. 
+The main page is where the user can monitoring the overall condition (eg: How many tasks are done) from each planner. 
+<img src="/images/UserMainPageTrim.jpg"/>
 
 2. To-do page:
 A user where make To-do lists. Multiple select is available.
 
 3. Daily Tasks:
-Where users make tasks that should do on a daily basis. User can set a timer (which is optional) for each tasks (For example: Read a book for 30 mins.) When timer is done, the app will alert the phone and send notification.   
+Where users make tasks that should do on a daily basis. Users can set a timer (which is optional) for each task (For example: Read a book for 30 mins.) When the timer is done, the app will alert the phone and send a notification.  
+
+<img src="/images/DailyTaskMain.jpg"/>
 
 All the planners can be modified by users. (Add, delete and edit)
 
+## Future work
+
+- Change to modern UI
+- Implement cool animation for the effects (animation when move to other frames(activity), click button, row for each plans)
+- Create Workout planner. (Method: Not determined yet)
+- Create caladner for monthly planner.
+- Make an app able to share user's planner to facebook, Twitter... etc
 
 
