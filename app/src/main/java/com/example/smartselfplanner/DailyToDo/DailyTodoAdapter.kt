@@ -77,7 +77,7 @@ class DailyTodoAdapter(
                 if (itemSelectedList.contains(position)) {
                     currentItem.isChecked = false
                     listener.oncheckboxClicked(currentItem)
-                    itemSelectedList.removeAt(position)
+                    itemSelectedList.remove(position)
                     if (itemSelectedList.isEmpty()) {
                         showMenuDelete(false)
                     }

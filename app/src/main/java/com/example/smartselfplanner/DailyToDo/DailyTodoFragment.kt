@@ -11,6 +11,7 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.Switch
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -52,7 +53,6 @@ class DailyTodoFragment : Fragment(), DailyTodoAdapter.OnItemClickListener {
         val datasource = UserTaskDatabase.getInstance(application).UserTaskDatabaseDao
         val viewModelFactory = DailyTodoViewModelFactory(datasource, application)
         viewModel = ViewModelProvider(this, viewModelFactory).get(DailyTodoViewModel::class.java)
-
 
         //bind recyclerview to TodoListAdapter
         binding.toDoRecyclerView.adapter = adapter
@@ -114,6 +114,17 @@ class DailyTodoFragment : Fragment(), DailyTodoAdapter.OnItemClickListener {
             getString(R.string.dailyTask_channel_name)
         )
 
+/*        binding.timerStart.setOnClickListener{
+            viewModel
+        }
+        binding.timerPause.setOnClickListener{
+            viewModel.pauseTimer()
+        }
+        binding.timerStop.setOnClickListener{
+
+        }*/
+
+
         return binding.root
     }
 
@@ -134,11 +145,17 @@ class DailyTodoFragment : Fragment(), DailyTodoAdapter.OnItemClickListener {
             timer.isChecked = alarmOn*/
         viewModel.cancelNotification()
         viewModel.setAlarm(true, userTask)
-        Toast.makeText(context, "Switch ON!", Toast.LENGTH_SHORT).show()
+/*        binding.timerPause.isVisible = true
+        binding.timerStart.isVisible = true
+        binding.timerStop.isVisible = true*/
+       // Toast.makeText(context, "Switch ON!", Toast.LENGTH_SHORT).show()
     }
 
     override fun setAlarmOff(userTask: UserTask, timer: Switch) {
         viewModel.setAlarm(false, userTask)
+/*        binding.timerPause.isVisible = false
+        binding.timerStart.isVisible = false
+        binding.timerStop.isVisible = false*/
     }
 
     //Create Channel for notification for dailytasks.

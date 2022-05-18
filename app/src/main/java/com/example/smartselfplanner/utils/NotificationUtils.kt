@@ -5,6 +5,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import androidx.core.app.NotificationCompat
+import androidx.navigation.NavDeepLinkBuilder
 import com.example.smartselfplanner.DailyToDo.DailyTodoFragment
 import com.example.smartselfplanner.MainActivity
 import com.example.smartselfplanner.R
@@ -20,16 +21,23 @@ fun NotificationManager.sendNotification(messageBody: String, applicationContext
 
     // Create the content intent for the notification, which launches
     // this activity
-    // create intent (User clicked the notification -> send to the activitiy related to that
-    val contentIntent = Intent(applicationContext, MainActivity::class.java)
+    // create intent (User clicked the notification -> send to the activitiy related to that)
+    //val contentIntent = Intent(applicationContext, MainActivity::class.java)
 
     //create PendingIntent
+    val pendingIntent = NavDeepLinkBuilder(applicationContext)
+        .setGraph(R.navigation.navigation)
+        .setDestination(R.id.dailyTodoFragment)
+        //.setArguments(args)
+        .createPendingIntent()
+
+/*    //create PendingIntent
     val contentPendingIntent = PendingIntent.getActivity(
         applicationContext,
         NOTIFICATION_ID,
         contentIntent,
         PendingIntent.FLAG_UPDATE_CURRENT
-    )
+    )*/
 
     //  get an instance of NotificationCompat.Builder
     val builder = NotificationCompat.Builder(
@@ -43,7 +51,7 @@ fun NotificationManager.sendNotification(messageBody: String, applicationContext
         .setContentText(messageBody)
 
         //  set content intent
-        .setContentIntent(contentPendingIntent)
+        .setContentIntent(pendingIntent)
             //When user click the notification, it will be gone
         .setAutoCancel(true)
 

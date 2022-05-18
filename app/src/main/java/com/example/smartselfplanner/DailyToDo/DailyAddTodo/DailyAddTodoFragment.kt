@@ -91,9 +91,6 @@ class DailyAddTodoFragment : Fragment() {
                     activity?.onBackPressed()
                 }
             }
-            //  Toast.makeText(context,"Your Todo has been created!", Toast.LENGTH_SHORT).show()
-
-
         }
 
         return binding.root

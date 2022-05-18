@@ -77,17 +77,12 @@ class DailyTodoViewModel(
             notifyIntent,
             PendingIntent.FLAG_NO_CREATE
         ) != null
-
-        Log.d("alarmon", _alarmOn.value.toString())
-
         notifyPendingIntent = PendingIntent.getBroadcast(
             getApplication(),
             REQUEST_CODE,
             notifyIntent,
             PendingIntent.FLAG_UPDATE_CURRENT
         )
-        Log.d("nitifyintent", notifyPendingIntent.toString())
-
 
         //If alarm is not null, resume the timer back for this alarm
         if (_alarmOn.value!!) {
@@ -105,8 +100,8 @@ class DailyTodoViewModel(
                     if (_elapsedTime.value!! <= 0) {
                         resetTimer()
                     }
-                }
 
+                }
                 override fun onFinish() {
                     resetTimer()
                 }
@@ -135,7 +130,6 @@ class DailyTodoViewModel(
         sec = userTask.dailyTimerSec!!
         Log.d("AlarmTesting", "$hour + $min + $sec")
         when (isChecked) {
-            /*true -> timeSelection.value?.let { startTimer(it) }*/
             true -> startTimer(hour, min, sec)
             false -> cancelNotification()
         }
@@ -145,15 +139,10 @@ class DailyTodoViewModel(
     /**
      * Creates a new alarm, notification and timer
      */
-    private fun startTimer(hour: Int, min: Int, sec: Int) {
+     fun startTimer(hour: Int, min: Int, sec: Int) {
         _alarmOn.value?.let {
             if (!it) {
                 _alarmOn.value = true
-/*                val selectedInterval = when (timerLengthSelection) {
-                    0 -> second * 10 //For testing only
-                    else ->timerLengthOptions[timerLengthSelection] * minute
-                }*/
-
                 val triggerTime =
                     SystemClock.elapsedRealtime() + (hour * hourTimer) + (min * minuteTimer) + (sec * secondTimer)
 
@@ -171,7 +160,6 @@ class DailyTodoViewModel(
                     triggerTime,
                     notifyPendingIntent
                 )
-
                 viewModelScope.launch {
                     saveTime(triggerTime)
                 }
@@ -239,4 +227,5 @@ class DailyTodoViewModel(
             database.update(task)
         }
     }
+
 }

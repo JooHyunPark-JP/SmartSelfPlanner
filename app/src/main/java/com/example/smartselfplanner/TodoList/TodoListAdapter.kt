@@ -40,13 +40,13 @@ class TodoListAdapter(
         if (itemSelectedList.isEmpty()) {
             holder.isCheckedCheckBox.isChecked = false
         }
-        holder.itemView.setOnClickListener {
+/*        holder.itemView.setOnClickListener {
             Toast.makeText(
                 it.context,
                 "PrimaryKey: ${currentItem.TaskId}, ischecked?: ${currentItem.isChecked} ",
                 Toast.LENGTH_SHORT
             ).show()
-        }
+        }*/
 
         holder.isCheckedCheckBox.setOnCheckedChangeListener { _, ischeck ->
             if (ischeck) {
@@ -56,7 +56,7 @@ class TodoListAdapter(
                 if (itemSelectedList.contains(position)) {
                     currentItem.isChecked = false
                     listener.oncheckboxClicked(currentItem)
-                    itemSelectedList.removeAt(position)
+                    itemSelectedList.remove(position)
                     if (itemSelectedList.isEmpty()) {
                         showMenuDelete(false)
                     }
